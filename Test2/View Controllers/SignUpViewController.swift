@@ -12,17 +12,16 @@ import FirebaseFirestore
 
 class SignUpViewController: UIViewController {
     
+   
     @IBOutlet weak var firstNameTextField: UITextField!
     
     @IBOutlet weak var lastNameTextField: UITextField!
     
     @IBOutlet weak var emailTextField: UITextField!
     
-    
     @IBOutlet weak var passwordTextField: UITextField!
     
     @IBOutlet weak var signUpButton: UIButton!
-    
     
     @IBOutlet weak var errorLabel: UILabel!
     
@@ -52,7 +51,6 @@ class SignUpViewController: UIViewController {
     
     
     @IBAction func signUpTapped(_ sender: Any) {
-        // Validate the fields
         let error = validateFields()
         
         if error != nil {
@@ -110,15 +108,15 @@ class SignUpViewController: UIViewController {
         Utilities.styleTextField(passwordTextField)
         Utilities.styleTextField(firstNameTextField)
         Utilities.styleTextField(lastNameTextField)
-        Utilities.styleFilledButton(signUpButton)
+        Utilities.stylePurpleButton(signUpButton)
     }
     
     
     func transitionToHome() {
         
-        let startViewController = storyboard?.instantiateViewController(identifier: Constants.Storyboard.StartViewController) as? ViewController
+        let loginViewController = storyboard?.instantiateViewController(identifier: Constants.Storyboard.loginViewController) as? LoginViewController
         
-        view.window?.rootViewController = startViewController
+        view.window?.rootViewController = loginViewController
         view.window?.makeKeyAndVisible()
         
     }
