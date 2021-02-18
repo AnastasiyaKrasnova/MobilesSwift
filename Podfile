@@ -8,6 +8,7 @@ target 'Test2' do
 	pod 'Firebase/Auth'
 	pod 'Firebase/Core'
 	pod 'Firebase/Firestore'
+  pod 'Firebase/Storage'
 
   # Pods for Test2
 

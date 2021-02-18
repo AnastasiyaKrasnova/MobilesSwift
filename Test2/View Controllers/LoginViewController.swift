@@ -7,6 +7,7 @@
 
 import UIKit
 import FirebaseAuth
+import FirebaseStorage
 
 class LoginViewController: UIViewController {
 
@@ -20,6 +21,8 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var signUpButton: UIButton!
     
     @IBOutlet weak var errorLabel: UILabel!
+    
+    @IBOutlet weak var imageView: UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,6 +60,36 @@ class LoginViewController: UIViewController {
         Utilities.styleTextField(passwordTextField)
         Utilities.styleGreenButton(loginButton)
         Utilities.stylePurpleButton(signUpButton)
+    }
+    
+    @objc fileprivate func uploadFhoto(){
+        guard let image=imageView.image, let data=image.jpegData(compressionQuality: 1.0) else {
+            
+            print("Error uploading image")
+            return
+        }
+        let imageReferance=Storage.storage().reference().child("images/rivers.jpg")
+        
+        imageReferance.putData(data, metadata: nil){
+            (metadata,err) in
+            if let error=err{
+                print(error)
+                return
+            }
+            imageReferance.downloadURL(completion: {(url,err) in
+                if let error=err{
+                    print(error)
+                    return
+                }
+                
+                guard let URL=url else{
+                    print("problems")
+                    return
+                }
+                
+                print(URL)
+            })
+        }
     }
     
 
