@@ -9,6 +9,8 @@ target 'Test2' do
 	pod 'Firebase/Core'
 	pod 'Firebase/Firestore'
   pod 'Firebase/Storage'
+  pod 'FirebaseUI/Storage'
+  pod 'Kingfisher', '~> 6.1'
 
   # Pods for Test2
 

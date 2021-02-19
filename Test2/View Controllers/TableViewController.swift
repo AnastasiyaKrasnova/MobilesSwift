@@ -8,7 +8,8 @@
 import UIKit
 import Firebase
 import FirebaseFirestore
-
+import FirebaseStorage
+import FirebaseUI
 
 
 class TableViewController: UIViewController{
@@ -36,18 +37,13 @@ class TableViewController: UIViewController{
        
     }
     
-    func loadCharacters(completion: @escaping (Array<QueryDocumentSnapshot>?) -> Void){
-
-        let db = Firestore.firestore()
-        db.collection("users").getDocuments() { (querySnapshot, err) in
-            if let err = err {
-                print("Error getting documents: \(err)")
-                completion(nil)
-            } else {
-                completion(querySnapshot!.documents)
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier==Constants.Storyboard.detailedSegue{
+            if let indexPath=tableView.indexPathForSelectedRow{
+                let destVC=segue.destination as! DetailedViewController
+                destVC.data=data[indexPath.row]
             }
         }
-
     }
 }
 
@@ -64,9 +60,13 @@ extension TableViewController: UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell=tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! CharacterTableViewCell
-        cell.firstNameLabel?.text=data[indexPath.row].data()["firstname"] as? String
-        cell.lastNameLabel?.text=data[indexPath.row].data()["lastname"] as? String
+        let cell=tableView.dequeueReusableCell(withIdentifier: Constants.Storyboard.cellIdentifier, for: indexPath) as! CharacterTableViewCell
+        cell.nameLabel?.text=data[indexPath.row].data()["name"] as? String
+        cell.standLabel?.text=data[indexPath.row].data()["stand"] as? String
+        cell.ageLabel?.text=data[indexPath.row].data()["age"] as? String
+        cell.seasonLabel?.text=data[indexPath.row].data()["season"] as? String
+        let url=data[indexPath.row].data()["avatar"] as? String
+        downloadImage(url!, image: cell.avatarImageView)
         return cell
     }
     
@@ -74,16 +74,40 @@ extension TableViewController: UITableViewDataSource{
 
 class CharacterTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var firstNameLabel: UILabel!
+   
+    @IBOutlet weak var nameLabel: UILabel!
     
-    @IBOutlet weak var lastNameLabel: UILabel!
+    @IBOutlet weak var standLabel: UILabel!
     
-    @IBOutlet weak var emailLabel: UILabel!
+    @IBOutlet weak var ageLabel: UILabel!
     
-    @IBOutlet weak var characterImageView: UIImageView!
+    @IBOutlet weak var seasonLabel: UILabel!
     
-    
+   
+    @IBOutlet weak var avatarImageView: UIImageView!
     
 }
 
+func loadCharacters(completion: @escaping (Array<QueryDocumentSnapshot>?) -> Void){
+
+    let db = Firestore.firestore()
+    db.collection("characters").getDocuments() { (querySnapshot, err) in
+        if let err = err {
+            print("Error getting documents: \(err)")
+            completion(nil)
+        } else {
+            completion(querySnapshot!.documents)
+        }
+    }
+
+}
+
+func downloadImage(_ ref: String, image: UIImageView){
+    let reference = Storage.storage().reference(forURL: ref)
+
+    let placeholderImage = UIImage(named: "placeholder.jpg")
+
+    image.sd_setImage(with: reference, placeholderImage: placeholderImage)
+   
+}
 

@@ -26,6 +26,7 @@ class LoginViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        //uploadFhoto()
 
         // Do any additional setup after loading the view.
         setElementsUp()
