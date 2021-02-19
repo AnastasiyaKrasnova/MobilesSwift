@@ -16,19 +16,24 @@ class DetailedViewController: UIViewController {
     
     @IBOutlet weak var standLabel: UILabel!
     
+   
     @IBOutlet weak var ageLabel: UILabel!
     
     @IBOutlet weak var seasonsLabel: UILabel!
     
-    @IBOutlet weak var descriptionTextView: UITextView!
-    
-   
     @IBOutlet weak var avatarImageView: UIImageView!
+    
+    
+    @IBOutlet weak var descriptionTextView: UITextView!
     
     var data: QueryDocumentSnapshot?
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped(tapGestureRecognizer:)))
+            avatarImageView.isUserInteractionEnabled = true
+            avatarImageView.addGestureRecognizer(tapGestureRecognizer)
         
         if data==nil{
             print("Error on segue")
@@ -39,6 +44,7 @@ class DetailedViewController: UIViewController {
             ageLabel.text=data!.data()["age"] as? String
             seasonsLabel.text=data!.data()["season"] as? String
             descriptionTextView.text=data!.data()["description"] as? String
+            
             let url=data!.data()["avatar"] as? String
             downloadImage(url!, image: avatarImageView)
         }
@@ -47,6 +53,22 @@ class DetailedViewController: UIViewController {
         super.viewDidLoad()
 
     }
+    
+    @objc func imageTapped(tapGestureRecognizer: UITapGestureRecognizer)
+    {
+       transitionToCollection()
+    }
+    
+    func transitionToCollection() {
+        
+        let characterPhotoViewController = storyboard?.instantiateViewController(identifier: Constants.Storyboard.characterPhotoViewController) as? CharacterPhotoViewController
+        
+        view.window?.rootViewController = characterPhotoViewController
+        view.window?.makeKeyAndVisible()
+        
+    }
 
 }
+
+
 
