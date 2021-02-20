@@ -11,20 +11,18 @@ import FirebaseFirestore
 class DetailedViewController: UIViewController {
 
     
-   
     @IBOutlet weak var nameLabel: UILabel!
-    
+   
     @IBOutlet weak var standLabel: UILabel!
     
-   
     @IBOutlet weak var ageLabel: UILabel!
     
-    @IBOutlet weak var seasonsLabel: UILabel!
     
-    @IBOutlet weak var avatarImageView: UIImageView!
-    
+    @IBOutlet weak var seasonLabel: UILabel!
     
     @IBOutlet weak var descriptionTextView: UITextView!
+    
+    @IBOutlet weak var avatarImageView: UIImageView!
     
     var data: QueryDocumentSnapshot?
     
@@ -42,7 +40,7 @@ class DetailedViewController: UIViewController {
             nameLabel.text=data!.data()["name"] as? String
             standLabel.text=data!.data()["stand"] as? String
             ageLabel.text=data!.data()["age"] as? String
-            seasonsLabel.text=data!.data()["season"] as? String
+            seasonLabel.text=data!.data()["season"] as? String
             descriptionTextView.text=data!.data()["description"] as? String
             
             let url=data!.data()["avatar"] as? String

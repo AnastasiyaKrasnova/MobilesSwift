@@ -14,7 +14,9 @@ struct Constants {
         static let loginViewController = "LoginVC"
         static let cellIdentifier = "cell"
         static let detailedSegue = "DetailedSegue"
+        static let tableViewController = "TableVC"
         static let characterPhotoViewController="PhotoVC"
+        static let navigationViewController="NavVC"
         
     }
     

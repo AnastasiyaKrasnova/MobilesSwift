@@ -38,6 +38,10 @@ class TableViewController: UIViewController{
        
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.isNavigationBarHidden = false
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier==Constants.Storyboard.detailedSegue{
             if let indexPath=tableView.indexPathForSelectedRow{
@@ -48,13 +52,23 @@ class TableViewController: UIViewController{
     }
 }
 
-extension TableViewController: UITableViewDelegate{
+extension TableViewController: UITableViewDelegate,UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("You selected me")
     }
-}
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
 
-extension TableViewController: UITableViewDataSource{
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if (editingStyle == .delete) {
+            deleteCharacter(data[indexPath.row].documentID)
+            data.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        }
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         print(data.count)
         return data.count
@@ -70,8 +84,8 @@ extension TableViewController: UITableViewDataSource{
         downloadImage(url!, image: cell.avatarImageView)
         return cell
     }
-    
 }
+
 
 class CharacterTableViewCell: UITableViewCell {
 
@@ -100,7 +114,17 @@ func loadCharacters(completion: @escaping (Array<QueryDocumentSnapshot>?) -> Voi
             completion(querySnapshot!.documents)
         }
     }
+}
 
+func deleteCharacter(_ documentID: String){
+    let db = Firestore.firestore()
+    db.collection("characters").document(documentID).delete() { err in
+        if let err = err {
+            print("Error removing document: \(err)")
+        } else {
+            print("Document successfully removed!")
+        }
+    }
 }
 
 func downloadImage(_ ref: String, image: UIImageView){
