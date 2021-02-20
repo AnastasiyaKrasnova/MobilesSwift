@@ -38,9 +38,6 @@ class TableViewController: UIViewController{
        
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        self.navigationController?.isNavigationBarHidden = false
-    }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier==Constants.Storyboard.detailedSegue{
@@ -48,6 +45,11 @@ class TableViewController: UIViewController{
                 let destVC=segue.destination as! DetailedViewController
                 destVC.data=data[indexPath.row]
             }
+        }
+        if segue.identifier==Constants.Storyboard.editorSegue{
+                let destVC=segue.destination as! CharacterEditorViewController
+                destVC.isEditing=false
+                destVC.data=nil
         }
     }
 }

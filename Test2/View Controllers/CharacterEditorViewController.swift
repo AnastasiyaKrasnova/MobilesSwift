@@ -13,6 +13,9 @@ import FirebaseStorage
 class CharacterEditorViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     var inEditing: Bool!
+    
+    var data: QueryDocumentSnapshot?
+    
     var imagePicker = UIImagePickerController()
 
     
@@ -43,6 +46,25 @@ class CharacterEditorViewController: UIViewController, UIImagePickerControllerDe
 
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        if data==nil{
+            print("Error on segue")
+        }
+        else{
+            nameTextField.text=data!.data()["name"] as? String
+            standTextField.text=data!.data()["stand"] as? String
+            ageTextField.text=data!.data()["age"] as? String
+            seasonTextField.text=data!.data()["season"] as? String
+            descriptionTextView.text=data!.data()["description"] as? String
+            xTextField.text=data!.data()["latitude"] as? String
+            yTextField.text=data!.data()["longitude"] as? String
+            let url=data!.data()["avatar"] as? String
+            downloadImage(url!, image: avatarImageView)
+        }
+    }
+    
     
     @objc func imageTapped(tapGestureRecognizer: UITapGestureRecognizer)
     {
@@ -69,7 +91,7 @@ class CharacterEditorViewController: UIViewController, UIImagePickerControllerDe
             addCharacter(name, stand: stand, age: age, season: season, desc: desc, x: x, y: y)
         }
         else{
-            editCharacter(name, stand: stand, age: age, season: season, desc: desc, x: x, y: y)
+            editCharacter(name, stand: stand, age: age, season: season, desc: desc, x: x, y: y, documentID: data!.documentID)
         }
         
     }
@@ -93,7 +115,7 @@ class CharacterEditorViewController: UIViewController, UIImagePickerControllerDe
             }
             else{
                 let url=completion?.absoluteString
-                db.collection("characters").addDocument(data: ["name":name, "avatar": url!,"stand":stand, "age": age, "season":season, "description": desc, "x":x,"y":y ]) { (error) in
+                db.collection("characters").addDocument(data: ["name":name, "avatar": url!,"stand":stand, "age": age, "season":season, "description": desc, "latitude":x,"longitude":y ]) { (error) in
                     
                     if error != nil {
                         self.showError("Error saving user data")
@@ -109,16 +131,28 @@ class CharacterEditorViewController: UIViewController, UIImagePickerControllerDe
     }
     
     
-    func editCharacter(_ name: String,stand: String,age: String, season: String, desc: String, x: String, y: String){
+    func editCharacter(_ name: String,stand: String,age: String, season: String, desc: String, x: String, y: String, documentID: String){
         let db = Firestore.firestore()
         
-        db.collection("characters").addDocument(data: ["name":name, "stand":stand, "age": age, "season":season, "description": desc, "x":x,"y":y ]) { (error) in
-            
-            if error != nil {
-                self.showError("Error saving user data")
+        uploadFhoto(){(completion) in
+            if completion==nil{
+                self.showError("Error saving picture")
             }
+            else{
+                let url=completion?.absoluteString
+                let washingtonRef = db.collection("characters").document(documentID)
+                washingtonRef.updateData([
+                    "name":name, "avatar": url!,"stand":stand, "age": age, "season":season, "description": desc, "latitude":x,"longitude":y
+                ]) { (error) in
+                    if error != nil {
+                        self.showError("Error saving user data")
+                    }
+                    else{
+                        self.transitionToHome()              }
+                }
+            }
+                
         }
-        
     }
     
     
@@ -147,7 +181,7 @@ class CharacterEditorViewController: UIViewController, UIImagePickerControllerDe
             completion(nil)
             return
         }
-        let imageReferance=Storage.storage().reference().child("images/rivers.jpg")
+        let imageReferance=Storage.storage().reference().child("images/"+NSUUID().uuidString+".jpg")
         
         imageReferance.putData(data, metadata: nil){
             (metadata,err) in

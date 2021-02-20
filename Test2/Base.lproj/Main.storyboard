@@ -388,7 +388,7 @@
                         <rightBarButtonItems>
                             <barButtonItem title="Item" image="highlighter" catalog="system" id="OGj-iS-XHU">
                                 <connections>
-                                    <segue destination="o9G-G1-Fqn" kind="show" id="88g-vv-yDN"/>
+                                    <segue destination="o9G-G1-Fqn" kind="show" identifier="editorSegue" id="88g-vv-yDN"/>
                                 </connections>
                             </barButtonItem>
                             <barButtonItem title="Images" image="photo.on.rectangle.fill" catalog="system" id="kXc-2n-jd6"/>

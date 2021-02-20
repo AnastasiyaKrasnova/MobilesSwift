@@ -29,10 +29,6 @@ class DetailedViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped(tapGestureRecognizer:)))
-            avatarImageView.isUserInteractionEnabled = true
-            avatarImageView.addGestureRecognizer(tapGestureRecognizer)
-        
         if data==nil{
             print("Error on segue")
         }
@@ -52,9 +48,12 @@ class DetailedViewController: UIViewController {
 
     }
     
-    @objc func imageTapped(tapGestureRecognizer: UITapGestureRecognizer)
-    {
-       transitionToCollection()
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier==Constants.Storyboard.editorSegue{
+                let destVC=segue.destination as! CharacterEditorViewController
+                destVC.isEditing=true
+                destVC.data=data
+        }
     }
     
     func transitionToCollection() {
