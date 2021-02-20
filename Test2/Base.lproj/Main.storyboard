@@ -5,6 +5,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -251,6 +252,11 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="large" id="l3a-0T-Mke">
+                                <rect key="frame" x="0.0" y="323" width="375" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="color" systemColor="systemIndigoColor"/>
+                            </activityIndicatorView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="giw-BA-jzX"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -267,6 +273,7 @@
                         </rightBarButtonItems>
                     </navigationItem>
                     <connections>
+                        <outlet property="activityIndicator" destination="l3a-0T-Mke" id="4vR-eR-wVK"/>
                         <outlet property="tableView" destination="ulv-86-iQn" id="V3U-iM-JIg"/>
                     </connections>
                 </viewController>
@@ -391,8 +398,16 @@
                                     <segue destination="o9G-G1-Fqn" kind="show" identifier="editorSegue" id="88g-vv-yDN"/>
                                 </connections>
                             </barButtonItem>
-                            <barButtonItem title="Images" image="photo.on.rectangle.fill" catalog="system" id="kXc-2n-jd6"/>
-                            <barButtonItem title="videos" image="video.bubble.left" catalog="system" id="kkp-1G-Ev2"/>
+                            <barButtonItem title="Images" image="photo.on.rectangle.fill" catalog="system" id="kXc-2n-jd6">
+                                <connections>
+                                    <segue destination="4ct-xd-AI7" kind="show" identifier="photoSegue" id="CXM-Tw-u9n"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="videos" image="video.bubble.left" catalog="system" id="kkp-1G-Ev2">
+                                <connections>
+                                    <segue destination="AcP-6D-Yuk" kind="show" id="VJY-Zy-RFV"/>
+                                </connections>
+                            </barButtonItem>
                         </rightBarButtonItems>
                     </navigationItem>
                     <connections>
@@ -408,6 +423,71 @@
             </objects>
             <point key="canvasLocation" x="4122" y="-897"/>
         </scene>
+        <!--Character Photo View Controller-->
+        <scene sceneID="iWP-wp-quN">
+            <objects>
+                <viewController id="4ct-xd-AI7" customClass="CharacterPhotoViewController" customModule="Test2" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="24h-52-sxS">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="JYZ-mm-Mpg">
+                                <rect key="frame" x="0.0" y="44" width="375" height="623"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="XSB-0O-fHw">
+                                    <size key="itemSize" width="128" height="128"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="collectionCell" id="eTh-51-jJh" customClass="CharacterPhotoCell" customModule="Test2" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="158" height="162"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="YEB-Ny-MIq">
+                                            <rect key="frame" x="0.0" y="0.0" width="158" height="162"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="loginWallpaper" translatesAutoresizingMaskIntoConstraints="NO" id="EGv-ah-ChV">
+                                                    <rect key="frame" x="8" y="8" width="141" height="146"/>
+                                                </imageView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottomMargin" secondItem="EGv-ah-ChV" secondAttribute="bottom" id="E6g-Lo-N3l"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="EGv-ah-ChV" secondAttribute="trailing" constant="1" id="Ot9-1W-col"/>
+                                                <constraint firstItem="EGv-ah-ChV" firstAttribute="top" secondItem="YEB-Ny-MIq" secondAttribute="topMargin" id="Wv9-Wq-NZa"/>
+                                                <constraint firstItem="EGv-ah-ChV" firstAttribute="top" secondItem="YEB-Ny-MIq" secondAttribute="topMargin" id="gK0-nu-16V"/>
+                                                <constraint firstItem="EGv-ah-ChV" firstAttribute="leading" secondItem="YEB-Ny-MIq" secondAttribute="leadingMargin" id="gpH-1n-civ"/>
+                                                <constraint firstItem="EGv-ah-ChV" firstAttribute="leading" secondItem="YEB-Ny-MIq" secondAttribute="leadingMargin" id="nws-ET-1hm"/>
+                                                <constraint firstItem="EGv-ah-ChV" firstAttribute="bottom" secondItem="YEB-Ny-MIq" secondAttribute="bottomMargin" id="vHu-pL-DiL"/>
+                                            </constraints>
+                                        </collectionViewCellContentView>
+                                        <size key="customSize" width="158" height="162"/>
+                                        <connections>
+                                            <outlet property="photoImageView" destination="EGv-ah-ChV" id="cOG-fN-tai"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                            </collectionView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="SK5-7O-LCs"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="JYZ-mm-Mpg" firstAttribute="trailing" secondItem="SK5-7O-LCs" secondAttribute="trailing" id="4a8-wF-3Tc"/>
+                            <constraint firstItem="JYZ-mm-Mpg" firstAttribute="leading" secondItem="SK5-7O-LCs" secondAttribute="leading" id="8x6-9B-hEZ"/>
+                            <constraint firstItem="JYZ-mm-Mpg" firstAttribute="bottom" secondItem="SK5-7O-LCs" secondAttribute="bottom" id="Bbg-iT-ZOZ"/>
+                            <constraint firstItem="JYZ-mm-Mpg" firstAttribute="top" secondItem="SK5-7O-LCs" secondAttribute="top" id="lPS-IP-AxY"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="D6T-yh-vsZ"/>
+                    <connections>
+                        <outlet property="photoCollectionView" destination="JYZ-mm-Mpg" id="c6Z-Ob-urS"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="58T-Cl-hOK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5276" y="-897.30134932533736"/>
+        </scene>
         <!--Character Editor View Controller-->
         <scene sceneID="RyW-FC-Vr6">
             <objects>
@@ -420,7 +500,7 @@
                                 <rect key="frame" x="0.0" y="44" width="375" height="623"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jP2-C5-eg6">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" highlightedImage="signUpWallpaper" highlighted="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jP2-C5-eg6">
                                 <rect key="frame" x="16" y="55" width="158" height="130"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
@@ -483,12 +563,18 @@
                                     <action selector="postTabbed:" destination="o9G-G1-Fqn" eventType="touchUpInside" id="bsE-n4-xiM"/>
                                 </connections>
                             </button>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="jmx-QC-7LG">
+                                <rect key="frame" x="169" y="288" width="20" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="color" systemColor="systemIndigoColor"/>
+                            </activityIndicatorView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="mmP-9V-yMI"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <navigationItem key="navigationItem" id="vL1-ni-RCw"/>
                     <connections>
+                        <outlet property="activityIndicator" destination="jmx-QC-7LG" id="vFa-UT-BZ8"/>
                         <outlet property="ageTextField" destination="fVS-vi-i5v" id="RY7-Ik-Yql"/>
                         <outlet property="avatarImageView" destination="jP2-C5-eg6" id="daA-sD-U0g"/>
                         <outlet property="descriptionTextView" destination="nrv-le-oY0" id="y6r-08-nX9"/>
@@ -503,6 +589,22 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Xgh-Ul-8ca" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="5022" y="11"/>
+        </scene>
+        <!--Video View Controller-->
+        <scene sceneID="k2X-YZ-94l">
+            <objects>
+                <viewController id="AcP-6D-Yuk" customClass="AVVideoViewController" customModule="Test2" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="tX8-Ec-Lzh">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="QtH-lU-CVd"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="nUU-5i-PIo"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="q2T-4O-fhE" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5736" y="-156"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="DMQ-0T-Had">
@@ -524,7 +626,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="88g-vv-yDN"/>
+        <segue reference="h48-Tb-cJm"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="highlighter" catalog="system" width="128" height="119"/>
@@ -539,6 +641,9 @@
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemIndigoColor">
+            <color red="0.34509803921568627" green="0.33725490196078434" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemPinkColor">
             <color red="1" green="0.17647058823529413" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

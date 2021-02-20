@@ -15,14 +15,18 @@ import FirebaseUI
 class TableViewController: UIViewController{
     
     var data=Array<QueryDocumentSnapshot>()
-    
   
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    
     @IBOutlet weak var tableView: UITableView!
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        activityIndicator.alpha=1
+        activityIndicator.startAnimating()
+        
         loadCharacters(){(completion) in
             if completion==nil{
                 print("Error loading characters")
@@ -30,6 +34,9 @@ class TableViewController: UIViewController{
             else{
                 self.data=completion!
                 self.tableView.reloadData()
+                
+                self.activityIndicator.stopAnimating()
+                self.activityIndicator.alpha=0
             }
                 
         }
@@ -37,6 +44,11 @@ class TableViewController: UIViewController{
         tableView.dataSource=self
        
     }
+    
+    /*override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        activityIndicator.startAnimating()
+    }*/
     
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -65,7 +77,7 @@ extension TableViewController: UITableViewDelegate,UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if (editingStyle == .delete) {
-            deleteCharacter(data[indexPath.row].documentID)
+            deleteCharacter(data: data[indexPath.row])
             data.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
@@ -105,36 +117,5 @@ class CharacterTableViewCell: UITableViewCell {
     
 }
 
-func loadCharacters(completion: @escaping (Array<QueryDocumentSnapshot>?) -> Void){
 
-    let db = Firestore.firestore()
-    db.collection("characters").getDocuments() { (querySnapshot, err) in
-        if let err = err {
-            print("Error getting documents: \(err)")
-            completion(nil)
-        } else {
-            completion(querySnapshot!.documents)
-        }
-    }
-}
-
-func deleteCharacter(_ documentID: String){
-    let db = Firestore.firestore()
-    db.collection("characters").document(documentID).delete() { err in
-        if let err = err {
-            print("Error removing document: \(err)")
-        } else {
-            print("Document successfully removed!")
-        }
-    }
-}
-
-func downloadImage(_ ref: String, image: UIImageView){
-    let reference = Storage.storage().reference(forURL: ref)
-
-    let placeholderImage = UIImage(named: "placeholder.jpg")
-
-    image.sd_setImage(with: reference, placeholderImage: placeholderImage)
-   
-}
 

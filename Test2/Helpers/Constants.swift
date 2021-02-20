@@ -18,6 +18,8 @@ struct Constants {
         static let characterPhotoViewController="PhotoVC"
         static let navigationViewController="NavVC"
         static let editorSegue="editorSegue"
+        static let collectionViewCell="collectionCell"
+        static let photoSegue="photoSegue"
     }
     
 }

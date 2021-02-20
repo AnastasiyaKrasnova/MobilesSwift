@@ -54,6 +54,12 @@ class DetailedViewController: UIViewController {
                 destVC.isEditing=true
                 destVC.data=data
         }
+        if segue.identifier==Constants.Storyboard.photoSegue{
+                let destVC=segue.destination as! CharacterPhotoViewController
+            destVC.photos=data!.data()["images"] as? Array<String>
+            destVC.videos=data!.data()["videos"] as? Array<String>
+        }
+        
     }
     
     func transitionToCollection() {

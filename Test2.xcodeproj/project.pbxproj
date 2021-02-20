@@ -22,6 +22,7 @@
 		AF52DF6C25DFCF8C00D49E61 /* MapsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF52DF6B25DFCF8C00D49E61 /* MapsViewController.swift */; };
 		AF56219425DF2FC8005EE11C /* DetailedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF56219325DF2FC8005EE11C /* DetailedViewController.swift */; };
 		AF56219725DF4C47005EE11C /* CharacterPhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF56219625DF4C47005EE11C /* CharacterPhotoViewController.swift */; };
+		AF58129525E1ADD800C9DEBA /* CharacterController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF58129425E1ADD800C9DEBA /* CharacterController.swift */; };
 		AF5996C925DE89F100C9D8C6 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF5996C825DE89F100C9D8C6 /* TableViewController.swift */; };
 		AF60F93E25E06899006F2CC1 /* CharacterEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF60F93D25E06899006F2CC1 /* CharacterEditorViewController.swift */; };
 		F490A52758BD6C04564665B3 /* Pods_Test2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CDE610F953DD6A5E8B17649B /* Pods_Test2.framework */; };
@@ -46,6 +47,7 @@
 		AF52DF6B25DFCF8C00D49E61 /* MapsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapsViewController.swift; sourceTree = "<group>"; };
 		AF56219325DF2FC8005EE11C /* DetailedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedViewController.swift; sourceTree = "<group>"; };
 		AF56219625DF4C47005EE11C /* CharacterPhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterPhotoViewController.swift; sourceTree = "<group>"; };
+		AF58129425E1ADD800C9DEBA /* CharacterController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterController.swift; sourceTree = "<group>"; };
 		AF5996C825DE89F100C9D8C6 /* TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 		AF60F93D25E06899006F2CC1 /* CharacterEditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterEditorViewController.swift; sourceTree = "<group>"; };
 		BA9A1DB9DDD2F2232C87F49B /* Pods-Test2.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Test2.release.xcconfig"; path = "Target Support Files/Pods-Test2/Pods-Test2.release.xcconfig"; sourceTree = "<group>"; };
@@ -86,6 +88,7 @@
 			children = (
 				AF0A0F5625DDAFCF00D4183C /* Utilities.swift */,
 				AF0A0F7025DDC2D200D4183C /* Constants.swift */,
+				AF58129425E1ADD800C9DEBA /* CharacterController.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -289,6 +292,7 @@
 				AF213C8C25DDA08400C46DC3 /* LoginViewController.swift in Sources */,
 				AF60F93E25E06899006F2CC1 /* CharacterEditorViewController.swift in Sources */,
 				AF56219425DF2FC8005EE11C /* DetailedViewController.swift in Sources */,
+				AF58129525E1ADD800C9DEBA /* CharacterController.swift in Sources */,
 				AF213C6525DD8EB500C46DC3 /* AppDelegate.swift in Sources */,
 				AF213C6725DD8EB500C46DC3 /* SceneDelegate.swift in Sources */,
 				AF0A0F7125DDC2D200D4183C /* Constants.swift in Sources */,
