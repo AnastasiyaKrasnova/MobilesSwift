@@ -19,28 +19,37 @@ class CharacterPhotoViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        /*let url: URL?
-        url=URL(string: "https://r8---sn-cxauxaxjvh-hn9z.googlevideo.com/videoplayback?expire=1613856852&ei=9CsxYOS-OYqzyQWMupOIBg&ip=178.121.81.197&id=o-AOyi1Rfy95PdlN-CEeIbqYoPsX57NW2Yaq07ZSxTYPnZ&itag=22&source=youtube&requiressl=yes&mh=8x&mm=31,26&mn=sn-cxauxaxjvh-hn9z,sn-4g5e6nzy&ms=au,onr&mv=m&mvi=8&pcm2cms=yes&pl=22&initcwndbps=896250&vprv=1&mime=video/mp4&ns=ZCrtgt2L1YGBNYRjbzmrRnEF&cnr=14&ratebypass=yes&dur=87.655&lmt=1573122925285686&mt=1613834923&fvip=8&c=WEB&txp=1306222&n=6IASvQO3Lb3HbTfz&sparams=expire,ei,ip,id,itag,source,requiressl,vprv,mime,ns,cnr,ratebypass,dur,lmt&sig=AOq0QJ8wRQIgIeFHYWMRWMoLNTel2-jFV8OrmS9LnbnNowItA5oHARcCIQD6sS5AkvKzDPuJDtz0IGRlc9rZTaT9KgOz5K7ZaUOqbQ==&lsparams=mh,mm,mn,ms,mv,mvi,pcm2cms,pl,initcwndbps&lsig=AG3C_xAwRAIgLPOpQqocJGBcUxyet75nudYD-Y54KnqHVZ0PDqegPzQCIAQNnIaCEVK2fVBtuT0o_suLcBCYus33jDqZwq_m0GUk")!
-    
-        let player = AVPlayer(url: url!)
         
-        let vc = AVPlayerViewController()
-        vc.player = player
-        
-        self.present(vc, animated: true) { vc.player?.play() }*/
         
         photoCollectionView.delegate=self
         photoCollectionView.dataSource=self
         
         
-        
     }
+    
+    func openVideoPlayer(_ ref: String){
+        
+        let url=URL(string: ref)
+        let player = AVPlayer(url: url!)
+        
+        let vc = AVPlayerViewController()
+        vc.player = player
+        self.present(vc, animated: true) { vc.player?.play() }
+    }
+    
+    
     
 
 }
 
 extension CharacterPhotoViewController: UICollectionViewDelegate{
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if indexPath.row>=photos!.count{
+            let index=indexPath.row-photos!.count
+            openVideoPlayer(videos![index])
+        }
+       
+        
         collectionView.deselectItem(at: indexPath, animated: true)
         print("You tapped me")
     }
@@ -53,16 +62,24 @@ extension CharacterPhotoViewController: UICollectionViewDataSource{
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell=collectionView.dequeueReusableCell(withReuseIdentifier: Constants.Storyboard.collectionViewCell, for: indexPath) as! CharacterPhotoCell
-        if indexPath.row<photos!.count{
+        let border=photos!.count
+        if indexPath.row<border{
             let url=photos![indexPath.row]
             downloadImage(url, image: cell.photoImageView)
         }
         else{
-            let url=URL(string:videos![indexPath.row])
-            if let thumbnailImage = getThumbnailImage(forUrl: url!) {
-                cell.photoImageView.image = thumbnailImage
+            let index=indexPath.row-photos!.count
+            let url=URL(string: videos![index])
+            createThumbnailOfVideoFromFileURL(videoURL: url!){
+                (completion) in
+                if completion==nil{
+                    
+                }
+                else{
+                    cell.photoImageView.image=completion
+                }
+                   
             }
-            
         }
         return cell
     }
@@ -92,34 +109,25 @@ class CharacterPhotoCell: UICollectionViewCell{
     
 }
 
-func getThumbnailImage(forUrl url: URL) -> UIImage? {
-    let asset: AVAsset = AVAsset(url: url)
-    let imageGenerator = AVAssetImageGenerator(asset: asset)
-
-    do {
-        let thumbnailImage = try imageGenerator.copyCGImage(at: CMTimeMake(value: 1, timescale: 60) , actualTime: nil)
-        return UIImage(cgImage: thumbnailImage)
-    } catch let error {
-        print(error)
-    }
-
-    return nil
+func createThumbnailOfVideoFromFileURL(videoURL: URL, completion: ((_ image: UIImage?) -> Void)) {
+        let asset = AVAsset(url: videoURL)
+        let assetImgGenerate = AVAssetImageGenerator(asset: asset)
+        assetImgGenerate.appliesPreferredTrackTransform = true
+        let time = CMTimeMake(value: 7, timescale: 1)
+        do {
+            let img = try assetImgGenerate.copyCGImage(at: time, actualTime: nil)
+            let thumbnail = UIImage(cgImage: img)
+            completion(thumbnail)
+        } catch {
+            print(error.localizedDescription)
+            completion(nil)
+        }
 }
 
 func getNumberOfCells(_ photos: Array<String>?, videos: Array<String>?)->Int{
-    if photos==nil && videos==nil{
-        return 0
-    }
-    else if videos==nil{
-        return photos!.count
-    }
-    else if photos==nil{
-        return videos!.count
-    }
-    else{
         return photos!.count+videos!.count
-    }
 }
+
 
 
 

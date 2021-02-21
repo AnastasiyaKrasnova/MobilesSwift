@@ -264,7 +264,8 @@
                     <navigationItem key="navigationItem" id="akz-5w-iik">
                         <barButtonItem key="backBarButtonItem" title="Back" id="Xth-5z-wlK"/>
                         <rightBarButtonItems>
-                            <barButtonItem title="Delete" image="trash" catalog="system" id="yRj-XC-o9X"/>
+                            <barButtonItem title="Delete" image="gearshape" catalog="system" id="yRj-XC-o9X"/>
+                            <barButtonItem title="Item" image="default_marker.png" id="7cX-11-QDr"/>
                             <barButtonItem title="Add" image="plus" catalog="system" id="nM3-sZ-abU">
                                 <connections>
                                     <segue destination="o9G-G1-Fqn" kind="show" id="h48-Tb-cJm"/>
@@ -401,11 +402,6 @@
                             <barButtonItem title="Images" image="photo.on.rectangle.fill" catalog="system" id="kXc-2n-jd6">
                                 <connections>
                                     <segue destination="4ct-xd-AI7" kind="show" identifier="photoSegue" id="CXM-Tw-u9n"/>
-                                </connections>
-                            </barButtonItem>
-                            <barButtonItem title="videos" image="video.bubble.left" catalog="system" id="kkp-1G-Ev2">
-                                <connections>
-                                    <segue destination="AcP-6D-Yuk" kind="show" id="VJY-Zy-RFV"/>
                                 </connections>
                             </barButtonItem>
                         </rightBarButtonItems>
@@ -629,13 +625,13 @@
         <segue reference="h48-Tb-cJm"/>
     </inferredMetricsTieBreakers>
     <resources>
+        <image name="default_marker.png" width="26" height="41"/>
+        <image name="gearshape" catalog="system" width="128" height="121"/>
         <image name="highlighter" catalog="system" width="128" height="119"/>
         <image name="loginWallpaper" width="1920" height="1080"/>
         <image name="photo.on.rectangle.fill" catalog="system" width="128" height="96"/>
         <image name="plus" catalog="system" width="128" height="113"/>
         <image name="signUpWallpaper" width="2560" height="1440"/>
-        <image name="trash" catalog="system" width="121" height="128"/>
-        <image name="video.bubble.left" catalog="system" width="128" height="110"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
