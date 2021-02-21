@@ -265,7 +265,11 @@
                         <barButtonItem key="backBarButtonItem" title="Back" id="Xth-5z-wlK"/>
                         <rightBarButtonItems>
                             <barButtonItem title="Delete" image="gearshape" catalog="system" id="yRj-XC-o9X"/>
-                            <barButtonItem title="Item" image="default_marker.png" id="7cX-11-QDr"/>
+                            <barButtonItem title="Item" image="mappin" catalog="system" id="7cX-11-QDr">
+                                <connections>
+                                    <segue destination="AcP-6D-Yuk" kind="show" identifier="mapSegue" id="XLC-ER-Z46"/>
+                                </connections>
+                            </barButtonItem>
                             <barButtonItem title="Add" image="plus" catalog="system" id="nM3-sZ-abU">
                                 <connections>
                                     <segue destination="o9G-G1-Fqn" kind="show" id="h48-Tb-cJm"/>
@@ -285,7 +289,7 @@
         <!--Detailed View Controller-->
         <scene sceneID="lGU-Vf-Rly">
             <objects>
-                <viewController id="uHD-fg-iq6" customClass="DetailedViewController" customModule="Test2" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="DetailedVC" id="uHD-fg-iq6" customClass="DetailedViewController" customModule="Test2" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="tN6-xD-uJU">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -482,7 +486,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="58T-Cl-hOK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5276" y="-897.30134932533736"/>
+            <point key="canvasLocation" x="5386" y="-1032"/>
         </scene>
         <!--Character Editor View Controller-->
         <scene sceneID="RyW-FC-Vr6">
@@ -584,23 +588,38 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Xgh-Ul-8ca" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5022" y="11"/>
+            <point key="canvasLocation" x="4121" y="245"/>
         </scene>
-        <!--Video View Controller-->
+        <!--Maps View Controller-->
         <scene sceneID="k2X-YZ-94l">
             <objects>
-                <viewController id="AcP-6D-Yuk" customClass="AVVideoViewController" customModule="Test2" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="AcP-6D-Yuk" customClass="MapsViewController" customModule="Test2" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="tX8-Ec-Lzh">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hUM-9Q-mPV" customClass="YMKMapView">
+                                <rect key="frame" x="0.0" y="44" width="375" height="623"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </view>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="QtH-lU-CVd"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="hUM-9Q-mPV" firstAttribute="bottom" secondItem="QtH-lU-CVd" secondAttribute="bottom" id="Tkv-4Y-ouZ"/>
+                            <constraint firstItem="hUM-9Q-mPV" firstAttribute="trailing" secondItem="QtH-lU-CVd" secondAttribute="trailing" id="hs7-w6-jvq"/>
+                            <constraint firstItem="hUM-9Q-mPV" firstAttribute="leading" secondItem="QtH-lU-CVd" secondAttribute="leading" id="ubS-ME-fk3"/>
+                            <constraint firstItem="hUM-9Q-mPV" firstAttribute="top" secondItem="QtH-lU-CVd" secondAttribute="top" id="xkg-sy-pZz"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="nUU-5i-PIo"/>
+                    <connections>
+                        <outlet property="mapView" destination="hUM-9Q-mPV" id="Hy7-Ek-Muq"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="q2T-4O-fhE" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5736" y="-156"/>
+            <point key="canvasLocation" x="5384.8000000000002" y="-258.62068965517244"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="DMQ-0T-Had">
@@ -622,13 +641,13 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="h48-Tb-cJm"/>
+        <segue reference="88g-vv-yDN"/>
     </inferredMetricsTieBreakers>
     <resources>
-        <image name="default_marker.png" width="26" height="41"/>
         <image name="gearshape" catalog="system" width="128" height="121"/>
         <image name="highlighter" catalog="system" width="128" height="119"/>
         <image name="loginWallpaper" width="1920" height="1080"/>
+        <image name="mappin" catalog="system" width="105" height="128"/>
         <image name="photo.on.rectangle.fill" catalog="system" width="128" height="96"/>
         <image name="plus" catalog="system" width="128" height="113"/>
         <image name="signUpWallpaper" width="2560" height="1440"/>

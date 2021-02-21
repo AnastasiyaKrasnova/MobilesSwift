@@ -45,11 +45,6 @@ class TableViewController: UIViewController{
        
     }
     
-    /*override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        activityIndicator.startAnimating()
-    }*/
-    
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier==Constants.Storyboard.detailedSegue{
@@ -62,6 +57,10 @@ class TableViewController: UIViewController{
                 let destVC=segue.destination as! CharacterEditorViewController
                 destVC.isEditing=false
                 destVC.data=nil
+        }
+        if segue.identifier==Constants.Storyboard.mapSegue{
+                let destVC=segue.destination as! MapsViewController
+                destVC.data=data
         }
     }
 }

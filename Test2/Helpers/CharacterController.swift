@@ -80,3 +80,21 @@ func deleteDocument(_ ref: String){
       }
     }
 }
+
+func uploadVideo(){
+    let localFile = URL(string: "/Users/nastusya/Desktop/PicturesForMobiles/videoplayback.mp4")!
+
+    let videoReferance=Storage.storage().reference().child("images/videoplayback.mp4")
+    /*let uploadTask = videoReferance.putFile(from: localFile, metadata: nil) { metadata, error in
+      guard let metadata = metadata else {
+        print("Error with metadata")
+        return
+      }*/
+        videoReferance.downloadURL { (url, error) in
+        guard let downloadURL = url else {
+            print("Error with url")
+            return
+        }
+        print(downloadURL)
+      }
+}

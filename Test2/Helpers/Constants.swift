@@ -15,11 +15,13 @@ struct Constants {
         static let cellIdentifier = "cell"
         static let detailedSegue = "DetailedSegue"
         static let tableViewController = "TableVC"
+        static let detailedViewController="DetailedVC"
         static let characterPhotoViewController="PhotoVC"
         static let navigationViewController="NavVC"
         static let editorSegue="editorSegue"
         static let collectionViewCell="collectionCell"
         static let photoSegue="photoSegue"
+        static let mapSegue="mapSegue"
     }
     
 }

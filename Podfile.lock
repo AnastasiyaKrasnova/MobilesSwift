@@ -348,6 +348,9 @@ PODS:
   - SDWebImage (5.10.4):
     - SDWebImage/Core (= 5.10.4)
   - SDWebImage/Core (5.10.4)
+  - YandexMapKit (3.5.0):
+    - YandexRuntime (= 3.5.0)
+  - YandexRuntime (3.5.0)
 
 DEPENDENCIES:
   - Firebase/Analytics
@@ -358,6 +361,7 @@ DEPENDENCIES:
   - FirebaseUI/Storage
   - GoogleMaps (= 4.0.0)
   - Kingfisher (~> 6.1)
+  - YandexMapKit
 
 SPEC REPOS:
   trunk:
@@ -384,6 +388,8 @@ SPEC REPOS:
     - nanopb
     - PromisesObjC
     - SDWebImage
+    - YandexMapKit
+    - YandexRuntime
 
 SPEC CHECKSUMS:
   abseil: 6c8eb7892aefa08d929b39f9bb108e5367e3228f
@@ -409,7 +415,9 @@ SPEC CHECKSUMS:
   nanopb: 59221d7f958fb711001e6a449489542d92ae113e
   PromisesObjC: 3113f7f76903778cf4a0586bd1ab89329a0b7b97
   SDWebImage: c666b97e1fa9c64b4909816a903322018f0a9c84
+  YandexMapKit: ecd4b78de34a35df63d066ac299e6fd0fe46d1ba
+  YandexRuntime: 2d55244d06267106cf9b00c25a1e63f72a73b6fd
 
-PODFILE CHECKSUM: b3b8e015e327a5a0ca55c1862a465827f90338db
+PODFILE CHECKSUM: fd91de381d2811e20fa32aefa3def655a287c32d
 
 COCOAPODS: 1.10.1

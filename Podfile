@@ -10,6 +10,7 @@ target 'Test2' do
 	pod 'Firebase/Firestore'
   pod 'Firebase/Storage'
   pod 'FirebaseUI/Storage'
+  pod 'YandexMapKit'
   pod 'GoogleMaps','4.0.0'
   pod 'Kingfisher', '~> 6.1'
 
