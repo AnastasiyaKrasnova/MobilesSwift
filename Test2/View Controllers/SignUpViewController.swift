@@ -25,14 +25,15 @@ class SignUpViewController: UIViewController {
     
     @IBOutlet weak var errorLabel: UILabel!
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-        setElementsUp()
-    }
+    @IBOutlet weak var avatarImageView: UIImageView!
     
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        setElementsUp()
+        setLocalization()
+    }
+    
     func validateFields()->String?{
         if firstNameTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines)=="" || lastNameTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines)=="" ||
         emailTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines)=="" ||
@@ -119,6 +120,14 @@ class SignUpViewController: UIViewController {
         view.window?.rootViewController = loginViewController
         view.window?.makeKeyAndVisible()
         
+    }
+    
+    func setLocalization(){
+        emailTextField.placeholder=LocalizationSystem.sharedInstance.localizedStringForKey(key: "LoginViewController_emailTextField", comment: "")
+        passwordTextField.placeholder=LocalizationSystem.sharedInstance.localizedStringForKey(key: "LoginViewController_passwordTextField", comment: "")
+        firstNameTextField.placeholder=LocalizationSystem.sharedInstance.localizedStringForKey(key: "LoginViewController_firstNameTextField", comment: "")
+        lastNameTextField.placeholder=LocalizationSystem.sharedInstance.localizedStringForKey(key: "LoginViewController_lastNameTextField", comment: "")
+        signUpButton.setTitle(LocalizationSystem.sharedInstance.localizedStringForKey(key: "LoginViewController_signUpButton", comment: ""), for: .normal)
     }
 
 }

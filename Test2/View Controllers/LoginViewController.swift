@@ -29,8 +29,14 @@ class LoginViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        setElementsUp()
+       
         
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        setElementsUp()
+        setLocalization()
     }
     
     @IBAction func loginTapped(_ sender: Any){
@@ -48,10 +54,10 @@ class LoginViewController: UIViewController {
             }
             else {
                 
-                let homeViewController = self.storyboard?.instantiateViewController(identifier: Constants.Storyboard.homeViewController) as? HomeViewController
+                /*let homeViewController = self.storyboard?.instantiateViewController(identifier: Constants.Storyboard.homeViewController) as? HomeViewController
                 
                 self.view.window?.rootViewController = homeViewController
-                self.view.window?.makeKeyAndVisible()
+                self.view.window?.makeKeyAndVisible()*/
             }
         }
     }
@@ -65,34 +71,12 @@ class LoginViewController: UIViewController {
         Utilities.stylePurpleButton(signUpButton)
     }
     
-    @objc fileprivate func uploadFhoto(){
-        guard let image=imageView.image, let data=image.jpegData(compressionQuality: 1.0) else {
-            
-            print("Error uploading image")
-            return
-        }
-        let imageReferance=Storage.storage().reference().child("images/rivers.jpg")
-        
-        imageReferance.putData(data, metadata: nil){
-            (metadata,err) in
-            if let error=err{
-                print(error)
-                return
-            }
-            imageReferance.downloadURL(completion: {(url,err) in
-                if let error=err{
-                    print(error)
-                    return
-                }
-                
-                guard let URL=url else{
-                    print("problems")
-                    return
-                }
-                
-                print(URL)
-            })
-        }
+    
+    func setLocalization(){
+        emailTextField.placeholder=LocalizationSystem.sharedInstance.localizedStringForKey(key: "LoginViewController_emailTextField", comment: "")
+        passwordTextField.placeholder=LocalizationSystem.sharedInstance.localizedStringForKey(key: "LoginViewController_passwordTextField", comment: "")
+        loginButton.setTitle(LocalizationSystem.sharedInstance.localizedStringForKey(key: "LoginViewController_loginButton", comment: ""), for: .normal)
+        signUpButton.setTitle(LocalizationSystem.sharedInstance.localizedStringForKey(key: "LoginViewController_signUpButton", comment: ""), for: .normal)
     }
     
 

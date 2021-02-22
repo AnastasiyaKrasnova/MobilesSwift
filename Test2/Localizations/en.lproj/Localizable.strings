@@ -1,0 +1,33 @@
+/* 
+  Localizable.strings
+  Test2
+
+  Created by NASTUSYA on 2/22/21.
+  
+*/
+"SettingsViewController_titleLabel" = "Custom Settings";
+"SettingsViewController_langLabel" = "App Language";
+"SettingsViewController_colorLabel" = "Color Theme";
+"SettingsViewController_darkModeLabel" = "Dark Mode";
+"SettingsViewController_changeLanguageButton" = "Change Language";
+
+"DetailedViewController_descriptionStaticLabel" = "Description:";
+"DetailedViewController_standStaticLabel" = "Stand:";
+"DetailedViewController_seasonStaticLabel" = "Season:";
+"DetailedViewController_ageStaticLabel" = "Age:";
+
+"LoginViewController_emailTextField" = "Enter Email";
+"LoginViewController_passwordTextField" = "Enter Password";
+"LoginViewController_firstNameTextField" = "Enter First Name";
+"LoginViewController_lastNameTextField" = "Enter Last Name";
+"LoginViewController_signUpButton" = "Sign Up";
+"LoginViewController_loginButton" = "Log In";
+
+"CharacterEditorViewController_nameTextField" = "Enter Name";
+"CharacterEditorViewController_ageTextField" = "Enter Age";
+"CharacterEditorViewController_standTextField" = "Enter Stand";
+"CharacterEditorViewController_seasonTextField" = "Enter Season";
+"CharacterEditorViewController_xTextField" = "Enter Latitude";
+"CharacterEditorViewController_yTextField" = "Enter Longitude";
+"CharacterEditorViewController_saveButton" = "Save";
+

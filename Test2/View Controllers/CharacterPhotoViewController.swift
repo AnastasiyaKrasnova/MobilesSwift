@@ -11,6 +11,7 @@ import AVKit
 
 class CharacterPhotoViewController: UIViewController {
 
+    
     @IBOutlet weak var photoCollectionView: UICollectionView!
     
     var photos: Array<String>?
@@ -18,8 +19,7 @@ class CharacterPhotoViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
+
         
         photoCollectionView.delegate=self
         photoCollectionView.dataSource=self

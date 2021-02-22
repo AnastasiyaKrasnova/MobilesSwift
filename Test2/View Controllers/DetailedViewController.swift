@@ -10,6 +10,10 @@ import FirebaseFirestore
 
 class DetailedViewController: UIViewController {
 
+    @IBOutlet weak var nameStaticLabel: UILabel!
+    @IBOutlet weak var ageStaticLabel: UILabel!
+    @IBOutlet weak var seasonStaticLabel: UILabel!
+    @IBOutlet weak var descriptionStaticLabel: UILabel!
     
     @IBOutlet weak var nameLabel: UILabel!
    
@@ -29,6 +33,8 @@ class DetailedViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        setLocalization()
+        
         if data==nil{
             print("Error on segue")
         }
@@ -45,7 +51,7 @@ class DetailedViewController: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -62,13 +68,11 @@ class DetailedViewController: UIViewController {
         
     }
     
-    func transitionToCollection() {
-        
-        let characterPhotoViewController = storyboard?.instantiateViewController(identifier: Constants.Storyboard.characterPhotoViewController) as? CharacterPhotoViewController
-        
-        view.window?.rootViewController = characterPhotoViewController
-        view.window?.makeKeyAndVisible()
-        
+    func setLocalization(){
+        nameStaticLabel.text=LocalizationSystem.sharedInstance.localizedStringForKey(key: "DetailedViewController_standStaticLabel", comment: "")
+        seasonStaticLabel.text=LocalizationSystem.sharedInstance.localizedStringForKey(key: "DetailedViewController_seasonStaticLabel", comment: "")
+        ageStaticLabel.text=LocalizationSystem.sharedInstance.localizedStringForKey(key: "DetailedViewController_ageStaticLabel", comment: "")
+        descriptionStaticLabel.text=LocalizationSystem.sharedInstance.localizedStringForKey(key: "DetailedViewController_descriptionStaticLabel", comment: "")
     }
 
 }

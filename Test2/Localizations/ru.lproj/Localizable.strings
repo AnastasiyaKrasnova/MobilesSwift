@@ -1,0 +1,32 @@
+/* 
+  Localizable.strings
+  Test2
+
+  Created by NASTUSYA on 2/22/21.
+  
+*/
+"SettingsViewController_titleLabel" = "Пользовательские настройки";
+"SettingsViewController_langLabel" = "Язык";
+"SettingsViewController_colorLabel" = "Цветовая тема";
+"SettingsViewController_darkModeLabel" = "Темный режим";
+"SettingsViewController_changeLanguageButton" = "Сменить язык";
+
+"DetailedViewController_descriptionStaticLabel" = "Описание:";
+"DetailedViewController_standStaticLabel" = "Стенд:";
+"DetailedViewController_seasonStaticLabel" = "Сезон:";
+"DetailedViewController_ageStaticLabel" = "Возраст:";
+
+"LoginViewController_emailTextField" = "Введите Email";
+"LoginViewController_passwordTextField" = "Введите Пароль";
+"LoginViewController_firstNameTextField" = "Введите Имя";
+"LoginViewController_lastNameTextField" = "Введите Фамилию";
+"LoginViewController_signUpButton" = "Зарегистрироваться";
+"LoginViewController_loginButton" = "Войти";
+
+"CharacterEditorViewController_nameTextField" = "Введите Имя";
+"CharacterEditorViewController_ageTextField" = "Введите Возраст";
+"CharacterEditorViewController_standTextField" = "Введите Стенд";
+"CharacterEditorViewController_seasonTextField" = "Введите Сезон";
+"CharacterEditorViewController_xTextField" = "Введите Широту";
+"CharacterEditorViewController_yTextField" = "Введите Долготу";
+"CharacterEditorViewController_saveButton" = "Сохранить";

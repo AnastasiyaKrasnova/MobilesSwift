@@ -40,8 +40,11 @@ class CharacterEditorViewController: UIViewController, UIImagePickerControllerDe
     
     @IBOutlet weak var errorLabel: UILabel!
     
+    @IBOutlet weak var saveButton: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         
         activityIndicator.alpha=0
         
@@ -53,6 +56,8 @@ class CharacterEditorViewController: UIViewController, UIImagePickerControllerDe
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        setLocalization()
         photoChanged=false
         
         if data==nil{
@@ -203,7 +208,15 @@ class CharacterEditorViewController: UIViewController, UIImagePickerControllerDe
         }
     }
     
-   
+    func setLocalization(){
+        nameTextField.placeholder=LocalizationSystem.sharedInstance.localizedStringForKey(key: "CharacterEditorViewController_nameTextField", comment: "")
+        standTextField.placeholder=LocalizationSystem.sharedInstance.localizedStringForKey(key: "CharacterEditorViewController_standTextField", comment: "")
+        ageTextField.placeholder=LocalizationSystem.sharedInstance.localizedStringForKey(key: "CharacterEditorViewController_ageTextField", comment: "")
+        seasonTextField.placeholder=LocalizationSystem.sharedInstance.localizedStringForKey(key: "CharacterEditorViewController_seasonTextField", comment: "")
+        xTextField.placeholder=LocalizationSystem.sharedInstance.localizedStringForKey(key: "CharacterEditorViewController_xTextField", comment: "")
+        yTextField.placeholder=LocalizationSystem.sharedInstance.localizedStringForKey(key: "CharacterEditorViewController_yTextField", comment: "")
+        saveButton.setTitle(LocalizationSystem.sharedInstance.localizedStringForKey(key: "CharacterEditorViewController_saveButton", comment: ""), for: .normal)
+    }
     
 }
 
