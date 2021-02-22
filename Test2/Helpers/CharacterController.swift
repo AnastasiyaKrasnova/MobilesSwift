@@ -98,3 +98,8 @@ func uploadVideo(){
         print(downloadURL)
       }
 }
+
+func showError(_ message:String, errorLabel: UILabel){
+    errorLabel.text=message
+    errorLabel.alpha=1
+}

@@ -18,39 +18,41 @@ class Utilities {
         
         bottomLine.frame = CGRect(x: 0, y: textfield.frame.height - 2, width: textfield.frame.width, height: 2)
         
-        bottomLine.backgroundColor = UIColor.init(red: 48/255, green: 173/255, blue: 99/255, alpha: 1).cgColor
+        bottomLine.backgroundColor = UIColor(named: "buttons_1")?.cgColor
         
-        // Remove border on text field
         textfield.borderStyle = .none
+        
+        textfield.backgroundColor = .none
+        
+        textfield.layer.cornerRadius = 5.0
         
         // Add the line to the text field
         textfield.layer.addSublayer(bottomLine)
         
     }
     
-    static func styleGreenButton(_ button:UIButton) {
+    static func styleImageView(_ imageView:UIImageView) {
         
-        // Filled rounded corner style
-        button.backgroundColor = UIColor.init(red: 48/255, green: 173/255, blue: 99/255, alpha: 1)
-        button.layer.cornerRadius = 25.0
-        button.tintColor = UIColor.white
+        
+        imageView.layer.borderWidth = 3
+        
+        imageView.layer.borderColor = UIColor(named: "buttons_1")?.cgColor
+        
+        imageView.layer.cornerRadius = 5.0
+        
+        
     }
     
-    static func stylePurpleButton(_ button:UIButton) {
+    static func styleButton(_ button:UIButton, type: Bool) {
         
-        // Filled rounded corner style
-        button.backgroundColor = UIColor.init(red: 128/255, green: 0/255, blue: 128/255, alpha: 1)
+        if type{
+            button.backgroundColor = UIColor(named: "buttons_1")
+        }
+        else{
+            button.backgroundColor = UIColor(named: "buttons_2")
+        }
         button.layer.cornerRadius = 25.0
-        button.tintColor = UIColor.white
-    }
-    
-    static func styleHollowButton(_ button:UIButton) {
-        
-        // Hollow rounded corner style
-        button.layer.borderWidth = 2
-        button.layer.borderColor = UIColor.black.cgColor
-        button.layer.cornerRadius = 25.0
-        button.tintColor = UIColor.black
+        button.tintColor = UIColor(named: "fonts")
     }
     
     static func isPasswordValid(_ password : String) -> Bool {

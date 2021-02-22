@@ -14,6 +14,16 @@ import FirebaseUI
 
 class TableViewController: UIViewController{
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        let cells = self.tableView.visibleCells as! Array<CharacterTableViewCell>
+
+            for cell in cells {
+                Utilities.styleImageView(cell.avatarImageView)
+            }
+        
+    }
+    
     var data=Array<QueryDocumentSnapshot>()
   
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
@@ -88,7 +98,11 @@ extension TableViewController: UITableViewDelegate,UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        
         let cell=tableView.dequeueReusableCell(withIdentifier: Constants.Storyboard.cellIdentifier, for: indexPath) as! CharacterTableViewCell
+        
+        Utilities.styleImageView(cell.avatarImageView)
         cell.nameLabel?.text=data[indexPath.row].data()["name"] as? String
         cell.standLabel?.text=data[indexPath.row].data()["stand"] as? String
         cell.ageLabel?.text=data[indexPath.row].data()["age"] as? String
@@ -115,6 +129,7 @@ class CharacterTableViewCell: UITableViewCell {
     @IBOutlet weak var avatarImageView: UIImageView!
     
 }
+
 
 
 

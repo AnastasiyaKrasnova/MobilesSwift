@@ -19,11 +19,46 @@ class SettingsViewController: UIViewController {
     
     @IBOutlet weak var changeLanguageButton: UIButton!
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        setLocalization()
-       
+    @IBOutlet weak var darkSwitch: UISwitch!
+    
+    @IBAction func switchTapped(_ sender: Any) {
+        if self.traitCollection.userInterfaceStyle == .light{
+            view.window!.overrideUserInterfaceStyle = .dark
+        }
+        else{
+            view.window!.overrideUserInterfaceStyle = .light
+        }
+        viewDidLoad()
+        
     }
+    
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        setLocalization()
+        if self.traitCollection.userInterfaceStyle == .light{
+            darkSwitch.setOn(false, animated: true)
+        }
+        else{
+            darkSwitch.setOn(true, animated: true)
+        }
+    }
+    
+    /*override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        
+        if self.traitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection) {
+            if traitCollection.userInterfaceStyle == .dark {
+                    //Dark
+            }
+            else {
+                    //Light
+            }
+        }
+        else {
+            
+        }
+    }*/
     
     @IBAction func changeLangTapped(_ sender: Any) {
         if LocalizationSystem.sharedInstance.getLanguage() == "en" {

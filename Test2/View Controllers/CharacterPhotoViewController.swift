@@ -36,9 +36,6 @@ class CharacterPhotoViewController: UIViewController {
         vc.player = player
         self.present(vc, animated: true) { vc.player?.play() }
     }
-    
-    
-    
 
 }
 
@@ -88,7 +85,7 @@ extension CharacterPhotoViewController: UICollectionViewDataSource{
 extension CharacterPhotoViewController: UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
 
-        let noOfCellsInRow = 3
+        let noOfCellsInRow = 2
 
         let flowLayout = collectionViewLayout as! UICollectionViewFlowLayout
             flowLayout.estimatedItemSize = .zero

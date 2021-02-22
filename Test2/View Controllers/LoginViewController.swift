@@ -27,14 +27,13 @@ class LoginViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         // Do any additional setup after loading the view.
        
         
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         setElementsUp()
         setLocalization()
     }
@@ -48,9 +47,8 @@ class LoginViewController: UIViewController {
         Auth.auth().signIn(withEmail: email, password: password) { (result, error) in
             
             if error != nil {
-                // Couldn't sign in
-                self.errorLabel.text = error!.localizedDescription
-                self.errorLabel.alpha = 1
+                showError("Email or Password is incorrect", errorLabel: self.errorLabel)
+                
             }
             else {
                 
@@ -67,8 +65,8 @@ class LoginViewController: UIViewController {
         errorLabel.alpha=0
         Utilities.styleTextField(emailTextField)
         Utilities.styleTextField(passwordTextField)
-        Utilities.styleGreenButton(loginButton)
-        Utilities.stylePurpleButton(signUpButton)
+        Utilities.styleButton(loginButton, type: true)
+        Utilities.styleButton(signUpButton, type: false)
     }
     
     

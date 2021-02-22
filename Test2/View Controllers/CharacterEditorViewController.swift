@@ -58,6 +58,7 @@ class CharacterEditorViewController: UIViewController, UIImagePickerControllerDe
         super.viewWillAppear(animated)
         
         setLocalization()
+        setElementsUp()
         photoChanged=false
         
         if data==nil{
@@ -69,8 +70,10 @@ class CharacterEditorViewController: UIViewController, UIImagePickerControllerDe
             ageTextField.text=data!.data()["age"] as? String
             seasonTextField.text=data!.data()["season"] as? String
             descriptionTextView.text=data!.data()["description"] as? String
-            xTextField.text=data!.data()["latitude"] as? String
-            yTextField.text=data!.data()["longitude"] as? String
+            let x=data!.data()["latitude"] as? Double
+            xTextField.text=String(format: "%.4f", x!)
+            let y=data!.data()["longitude"] as? Double
+            yTextField.text=String(format: "%.4f", y!)
             let url=data!.data()["avatar"] as? String
             downloadImage(url!, image: avatarImageView)
         }
@@ -94,23 +97,32 @@ class CharacterEditorViewController: UIViewController, UIImagePickerControllerDe
         activityIndicator.alpha=1
         activityIndicator.startAnimating()
         
-        let name = nameTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
-        let stand = standTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
-        let age = ageTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
-        let season = seasonTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
-        let x = xTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
-        let y = yTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
-        let desc = descriptionTextView.text!
-        
-        if isEditing==false{
-            addCharacter(name, stand: stand, age: age, season: season, desc: desc, x: x, y: y)
+        let error=validateFields()
+        if error==nil{
+            let name = nameTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+            let stand = standTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+            let age = ageTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+            let season = seasonTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+            let desc = descriptionTextView.text!
+            let x = Double(xTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines))
+            let y = Double(yTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines))
+            
+            if isEditing==false{
+                addCharacter(name, stand: stand, age: age, season: season, desc: desc, x: x!, y: y!, images: Array<String?>(), videos: Array<String?>())
+            }
+            else{
+                let avatar=data!.data()["avatar"] as! String
+                let images=data!.data()["images"] as! Array<String?>?
+                let videos=data!.data()["videos"] as! Array<String?>?
+                editCharacter(name, stand: stand, age: age, season: season, desc: desc, x: x!, y: y!, avatar: avatar, images: images, videos: videos, documentID: data!.documentID)
+            }
         }
         else{
-            let avatar=data!.data()["avatar"] as! String
-            let images=data!.data()["images"] as! Array<String?>?
-            let videos=data!.data()["videos"] as! Array<String?>?
-            editCharacter(name, stand: stand, age: age, season: season, desc: desc, x: x, y: y, avatar: avatar, images: images, videos: videos, documentID: data!.documentID)
+            activityIndicator.alpha=0
+            activityIndicator.stopAnimating()
+            showError(error!, errorLabel: errorLabel)
         }
+        
         
     }
     
@@ -125,22 +137,22 @@ class CharacterEditorViewController: UIViewController, UIImagePickerControllerDe
     }
     
     
-    func addCharacter(_ name: String,stand: String,age: String, season: String, desc: String, x: String, y: String){
+    func addCharacter(_ name: String,stand: String,age: String, season: String, desc: String, x: Double, y: Double, images: Array<String?>, videos: Array<String?>){
         let db = Firestore.firestore()
         
         uploadFhoto(avatarImageView){(completion) in
             if completion==nil{
-                self.showError("Error saving picture")
+                showError("Error saving picture", errorLabel: self.errorLabel)
             }
             else{
                 let url=completion?.absoluteString
-                db.collection("characters").addDocument(data: ["name":name, "avatar": url!,"stand":stand, "age": age, "season":season, "description": desc, "latitude":x,"longitude":y ]) { (error) in
+                db.collection("characters").addDocument(data: ["name":name, "avatar": url!,"stand":stand, "age": age, "season":season, "description": desc, "latitude":x,"longitude":y,"images": images, "videos": videos ]) { (error) in
                     
                     if error != nil {
-                        self.showError("Error saving user data")
+                        showError("Error saving user data", errorLabel: self.errorLabel)
                     }
                     else{
-                        self.transitionToHome()
+                        self.transitionToTable()
                     }
                 }
             }
@@ -150,12 +162,12 @@ class CharacterEditorViewController: UIViewController, UIImagePickerControllerDe
     }
     
     
-    func editCharacter(_ name: String,stand: String,age: String, season: String, desc: String, x: String, y: String,avatar: String, images: Array<String?>?, videos: Array<String?>?,documentID: String){
+    func editCharacter(_ name: String,stand: String,age: String, season: String, desc: String, x: Double, y: Double,avatar: String, images: Array<String?>?, videos: Array<String?>?,documentID: String){
         
         if photoChanged{
             uploadFhoto(avatarImageView){(completion) in
                 if completion==nil{
-                    self.showError("Error saving picture")
+                    showError("Error saving picture", errorLabel: self.errorLabel)
                 }
                 else{
                     deleteDocument(avatar)
@@ -172,27 +184,8 @@ class CharacterEditorViewController: UIViewController, UIImagePickerControllerDe
     }
     
     
-    func showError(_ message:String){
-        errorLabel.text=message
-        errorLabel.alpha=1
-    }
     
-    
-    func transitionToHome() {
-    
-        activityIndicator.alpha=0
-        activityIndicator.stopAnimating()
-        
-        let tableViewController = storyboard?.instantiateViewController(identifier: Constants.Storyboard.tableViewController) as? TableViewController
-        let navViewController = storyboard?.instantiateViewController(identifier: Constants.Storyboard.navigationViewController) as? UINavigationController
-        
-        navViewController!.setViewControllers([tableViewController!], animated: false)
-        view.window?.rootViewController = navViewController
-        view.window?.makeKeyAndVisible()
-        
-    }
-    
-    func updateCharacter(_ name: String,stand: String,age: String, season: String, desc: String, avatar: String, x: String, y: String, documentID: String){
+    func updateCharacter(_ name: String,stand: String,age: String, season: String, desc: String, avatar: String, x: Double, y: Double, documentID: String){
         
         let db = Firestore.firestore()
         
@@ -201,12 +194,31 @@ class CharacterEditorViewController: UIViewController, UIImagePickerControllerDe
             "name":name,"stand":stand, "age": age, "season":season, "avatar": avatar, "description": desc, "latitude":x,"longitude":y
         ]) { (error) in
             if error != nil {
-                self.showError("Error saving user data")
+                showError("Error saving user data", errorLabel: self.errorLabel)
             }
             else{
-                self.transitionToHome()              }
+                self.transitionToTable()              }
         }
     }
+    
+    func validateFields()->String?{
+        if nameTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines)=="" || standTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines)=="" ||
+            ageTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines)=="" ||
+            seasonTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines)=="" ||
+            xTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines)=="" ||
+            yTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines)==""
+            {
+                return "Please fill all the text fields"
+            }
+        
+        let x = Double((xTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines))!)
+        let y = Double((yTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines))!)
+        if  (x == nil || x! < 0 || x! > 89.3) ||  (y == nil || y! < 0 || y! > 89.3){
+            return "Coords data must be integer or double"
+        }
+            return nil
+    }
+
     
     func setLocalization(){
         nameTextField.placeholder=LocalizationSystem.sharedInstance.localizedStringForKey(key: "CharacterEditorViewController_nameTextField", comment: "")
@@ -216,6 +228,30 @@ class CharacterEditorViewController: UIViewController, UIImagePickerControllerDe
         xTextField.placeholder=LocalizationSystem.sharedInstance.localizedStringForKey(key: "CharacterEditorViewController_xTextField", comment: "")
         yTextField.placeholder=LocalizationSystem.sharedInstance.localizedStringForKey(key: "CharacterEditorViewController_yTextField", comment: "")
         saveButton.setTitle(LocalizationSystem.sharedInstance.localizedStringForKey(key: "CharacterEditorViewController_saveButton", comment: ""), for: .normal)
+    }
+    
+    func transitionToTable() {
+        
+        activityIndicator.alpha=0
+        activityIndicator.stopAnimating()
+        
+        let tableViewController = (storyboard?.instantiateViewController(identifier: Constants.Storyboard.tableViewController) as? TableViewController)!
+        let navViewController = storyboard?.instantiateViewController(identifier: Constants.Storyboard.navigationViewController) as? UINavigationController
+        navViewController?.pushViewController(tableViewController, animated: true)
+        view.window?.rootViewController = navViewController
+        view.window?.makeKeyAndVisible()
+        
+    }
+    
+    func setElementsUp(){
+        errorLabel.alpha=0
+        Utilities.styleTextField(nameTextField)
+        Utilities.styleTextField(seasonTextField)
+        Utilities.styleTextField(ageTextField)
+        Utilities.styleTextField(standTextField)
+        Utilities.styleTextField(xTextField)
+        Utilities.styleTextField(yTextField)
+        Utilities.styleButton(saveButton, type: true)
     }
     
 }
