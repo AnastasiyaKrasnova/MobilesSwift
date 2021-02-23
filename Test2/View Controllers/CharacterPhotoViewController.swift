@@ -59,6 +59,9 @@ extension CharacterPhotoViewController: UICollectionViewDataSource{
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell=collectionView.dequeueReusableCell(withReuseIdentifier: Constants.Storyboard.collectionViewCell, for: indexPath) as! CharacterPhotoCell
+        
+        cell.setUpElements()
+        
         let border=photos!.count
         if indexPath.row<border{
             let url=photos![indexPath.row]
@@ -103,6 +106,10 @@ extension CharacterPhotoViewController: UICollectionViewDelegateFlowLayout{
 class CharacterPhotoCell: UICollectionViewCell{
     
     @IBOutlet weak var photoImageView: UIImageView!
+    
+    public func setUpElements(){
+        Utilities.styleImageView(photoImageView, colorName: "buttons_1")
+    }
     
 }
 

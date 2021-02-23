@@ -19,7 +19,8 @@ class TableViewController: UIViewController{
         let cells = self.tableView.visibleCells as! Array<CharacterTableViewCell>
 
             for cell in cells {
-                Utilities.styleImageView(cell.avatarImageView)
+                cell.setLocalization()
+                cell.setUpElements()
             }
         
     }
@@ -102,7 +103,8 @@ extension TableViewController: UITableViewDelegate,UITableViewDataSource {
         
         let cell=tableView.dequeueReusableCell(withIdentifier: Constants.Storyboard.cellIdentifier, for: indexPath) as! CharacterTableViewCell
         
-        Utilities.styleImageView(cell.avatarImageView)
+        cell.setLocalization()
+        cell.setUpElements()
         cell.nameLabel?.text=data[indexPath.row].data()["name"] as? String
         cell.standLabel?.text=data[indexPath.row].data()["stand"] as? String
         cell.ageLabel?.text=data[indexPath.row].data()["age"] as? String
@@ -111,6 +113,7 @@ extension TableViewController: UITableViewDelegate,UITableViewDataSource {
         downloadImage(url!, image: cell.avatarImageView)
         return cell
     }
+    
 }
 
 
@@ -127,6 +130,23 @@ class CharacterTableViewCell: UITableViewCell {
     
    
     @IBOutlet weak var avatarImageView: UIImageView!
+    
+    @IBOutlet weak var ageStaticLabel: UILabel!
+    
+    @IBOutlet weak var seasonStaticLabel: UILabel!
+    
+    public func setLocalization(){
+        seasonStaticLabel.text=LocalizationSystem.sharedInstance.localizedStringForKey(key: "DetailedViewController_seasonStaticLabel", comment: "")
+        ageStaticLabel.text=LocalizationSystem.sharedInstance.localizedStringForKey(key: "DetailedViewController_ageStaticLabel", comment: "")
+    }
+    
+    public func setUpElements(){
+        //Utilities.styleImageView(avatarImageView, colorName: "buttons_1")
+        Utilities.styleLabel(nameLabel, colorName: "buttons_1")
+        Utilities.styleLabel(standLabel, colorName: "buttons_1")
+        Utilities.styleLabel(ageLabel, colorName: "buttons_1")
+        Utilities.styleLabel(seasonLabel, colorName: "buttons_1")
+    }
     
 }
 

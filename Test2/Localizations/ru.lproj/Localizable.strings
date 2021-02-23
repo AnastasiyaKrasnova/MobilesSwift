@@ -22,6 +22,7 @@
 "LoginViewController_lastNameTextField" = "Введите Фамилию";
 "LoginViewController_signUpButton" = "Зарегистрироваться";
 "LoginViewController_loginButton" = "Войти";
+"LoginViewController_loginError" = " Email или пароль не корректны" ;
 
 "CharacterEditorViewController_nameTextField" = "Введите Имя";
 "CharacterEditorViewController_ageTextField" = "Введите Возраст";
@@ -30,3 +31,15 @@
 "CharacterEditorViewController_xTextField" = "Введите Широту";
 "CharacterEditorViewController_yTextField" = "Введите Долготу";
 "CharacterEditorViewController_saveButton" = "Сохранить";
+
+"SignUpViewController_authError" = "Email некорректен";
+"SignUpViewController_dataError" = "Невозможно создать аккаунт";
+"SignUpViewController_notFullError" = "Заполните все текстовые поля";
+"SignUpViewController_sickPasswordError" = "Пароль не надежный";
+"SignUpViewController_avatarError" = "Выберете картинку";
+
+"SettingsViewController_English" = "Английский";
+"SettingsViewController_Russian" = "Русский";
+
+"CharacterEditViewController_coordsNotDouble" = "Координаты должны быть числом";
+"CharacterEditViewController_dataError" = "Невозможно сохранить данные";

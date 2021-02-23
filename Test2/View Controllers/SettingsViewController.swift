@@ -21,6 +21,33 @@ class SettingsViewController: UIViewController {
     
     @IBOutlet weak var darkSwitch: UISwitch!
     
+    @IBOutlet weak var languagePicker: UIPickerView!
+    
+    var languages : Array<String>?
+    var languagesCodes = ["en", "ru"]
+    
+    override func viewWillAppear(_ animated: Bool) {
+        
+        super.viewWillAppear(animated)
+        setLocalization()
+        setUpElements()
+        languagePicker.isHidden=true
+        if self.traitCollection.userInterfaceStyle == .light{
+            darkSwitch.setOn(false, animated: true)
+        }
+        else{
+            darkSwitch.setOn(true, animated: true)
+        }
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        languagePicker.delegate=self
+        languagePicker.dataSource=self
+    }
+    
+   
+    
     @IBAction func switchTapped(_ sender: Any) {
         if self.traitCollection.userInterfaceStyle == .light{
             view.window!.overrideUserInterfaceStyle = .dark
@@ -33,48 +60,51 @@ class SettingsViewController: UIViewController {
     }
     
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        setLocalization()
-        if self.traitCollection.userInterfaceStyle == .light{
-            darkSwitch.setOn(false, animated: true)
-        }
-        else{
-            darkSwitch.setOn(true, animated: true)
-        }
-    }
-    
-    /*override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        
-        if self.traitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection) {
-            if traitCollection.userInterfaceStyle == .dark {
-                    //Dark
-            }
-            else {
-                    //Light
-            }
-        }
-        else {
-            
-        }
-    }*/
-    
     @IBAction func changeLangTapped(_ sender: Any) {
-        if LocalizationSystem.sharedInstance.getLanguage() == "en" {
-            LocalizationSystem.sharedInstance.setLanguage(languageCode: "ru")
-        } else {
-            LocalizationSystem.sharedInstance.setLanguage(languageCode: "en")
-        }
-        viewDidLoad()
-                
+        languagePicker.isHidden=false
     }
+
     
     func setLocalization(){
+        languages = [LocalizationSystem.sharedInstance.localizedStringForKey(key: "SettingsViewController_English", comment: ""), LocalizationSystem.sharedInstance.localizedStringForKey(key: "SettingsViewController_Russian", comment: "")]
         titleLabel.text=LocalizationSystem.sharedInstance.localizedStringForKey(key: "SettingsViewController_titleLabel", comment: "")
         langLabel.text=LocalizationSystem.sharedInstance.localizedStringForKey(key: "SettingsViewController_langLabel", comment: "")
         colorLabel.text=LocalizationSystem.sharedInstance.localizedStringForKey(key: "SettingsViewController_colorLabel", comment: "")
         darkModeLabel.text=LocalizationSystem.sharedInstance.localizedStringForKey(key: "SettingsViewController_darkModeLabel", comment: "")
-        changeLanguageButton.setTitle(LocalizationSystem.sharedInstance.localizedStringForKey(key: "SettingsViewController_changeLanguageButton", comment: ""), for: .normal)
+        if LocalizationSystem.sharedInstance.getLanguage() == "en" {
+            changeLanguageButton.setTitle(LocalizationSystem.sharedInstance.localizedStringForKey(key: "SettingsViewController_English", comment: ""), for: .normal)
+        } else {
+            changeLanguageButton.setTitle(LocalizationSystem.sharedInstance.localizedStringForKey(key: "SettingsViewController_Russian", comment: ""), for: .normal)
+        }
+        
+    }
+    
+    public func setUpElements(){
+        Utilities.styleButton(changeLanguageButton, colorName: "buttons_1")
     }
 }
+
+extension SettingsViewController: UIPickerViewDelegate, UIPickerViewDataSource{
+   func numberOfComponents(in pickerView: UIPickerView) -> Int{
+            return 1
+    }
+
+   func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int{
+        return languages!.count
+   }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+            self.view.endEditing(true)
+            print(languages!)
+            return languages![row]
+        }
+
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        LocalizationSystem.sharedInstance.setLanguage(languageCode: languagesCodes[row])
+        self.languagePicker.isHidden = true
+        viewDidLoad()
+        viewWillAppear(true)
+    }
+}
+
+

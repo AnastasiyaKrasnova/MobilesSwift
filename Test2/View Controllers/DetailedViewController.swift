@@ -34,6 +34,7 @@ class DetailedViewController: UIViewController {
         super.viewWillAppear(animated)
         
         setLocalization()
+        setUpElements()
         
         if data==nil{
             print("Error on segue")
@@ -73,6 +74,14 @@ class DetailedViewController: UIViewController {
         seasonStaticLabel.text=LocalizationSystem.sharedInstance.localizedStringForKey(key: "DetailedViewController_seasonStaticLabel", comment: "")
         ageStaticLabel.text=LocalizationSystem.sharedInstance.localizedStringForKey(key: "DetailedViewController_ageStaticLabel", comment: "")
         descriptionStaticLabel.text=LocalizationSystem.sharedInstance.localizedStringForKey(key: "DetailedViewController_descriptionStaticLabel", comment: "")
+    }
+    
+    public func setUpElements(){
+        //Utilities.styleImageView(avatarImageView, colorName: "buttons_2")
+        Utilities.styleLabel(nameLabel, colorName: "buttons_2")
+        Utilities.styleLabel(standLabel, colorName: "buttons_2")
+        Utilities.styleLabel(ageLabel, colorName: "buttons_2")
+        Utilities.styleLabel(seasonLabel, colorName: "buttons_2")
     }
 
 }

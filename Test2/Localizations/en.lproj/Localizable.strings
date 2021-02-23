@@ -22,6 +22,7 @@
 "LoginViewController_lastNameTextField" = "Enter Last Name";
 "LoginViewController_signUpButton" = "Sign Up";
 "LoginViewController_loginButton" = "Log In";
+"LoginViewController_loginError" = "Email or password is incorrect" ;
 
 "CharacterEditorViewController_nameTextField" = "Enter Name";
 "CharacterEditorViewController_ageTextField" = "Enter Age";
@@ -30,4 +31,16 @@
 "CharacterEditorViewController_xTextField" = "Enter Latitude";
 "CharacterEditorViewController_yTextField" = "Enter Longitude";
 "CharacterEditorViewController_saveButton" = "Save";
+
+"SignUpViewController_authError" = "Email is incorrect";
+"SignUpViewController_dataError" = "Unable to create new account";
+"SignUpViewController_notFullError" = "Please fill all the text fields";
+"SignUpViewController_sickPasswordError" = "Password is not strong enough";
+"SignUpViewController_avatarError" = "Picture must be provided";
+
+"SettingsViewController_English" = "English";
+"SettingsViewController_Russian" = "Russian";
+
+"CharacterEditViewController_coordsNotDouble" = "Coords must be of valid numeric type";
+"CharacterEditViewController_dataError" = "Unable to save data";
 

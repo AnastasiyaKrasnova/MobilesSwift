@@ -47,15 +47,11 @@ class LoginViewController: UIViewController {
         Auth.auth().signIn(withEmail: email, password: password) { (result, error) in
             
             if error != nil {
-                showError("Email or Password is incorrect", errorLabel: self.errorLabel)
+                showError(LocalizationSystem.sharedInstance.localizedStringForKey(key: "LoginViewController_loginError", comment: ""), errorLabel: self.errorLabel)
                 
             }
             else {
-                
-                /*let homeViewController = self.storyboard?.instantiateViewController(identifier: Constants.Storyboard.homeViewController) as? HomeViewController
-                
-                self.view.window?.rootViewController = homeViewController
-                self.view.window?.makeKeyAndVisible()*/
+                self.transitionToTable()
             }
         }
     }
@@ -63,10 +59,10 @@ class LoginViewController: UIViewController {
     
     func setElementsUp(){
         errorLabel.alpha=0
-        Utilities.styleTextField(emailTextField)
-        Utilities.styleTextField(passwordTextField)
-        Utilities.styleButton(loginButton, type: true)
-        Utilities.styleButton(signUpButton, type: false)
+        Utilities.styleTextField(emailTextField, colorName: "buttons_1")
+        Utilities.styleTextField(passwordTextField, colorName: "buttons_1")
+        Utilities.styleButton(loginButton, colorName: "buttons_1")
+        Utilities.styleButton(signUpButton, colorName: "buttons_2")
     }
     
     
@@ -75,6 +71,18 @@ class LoginViewController: UIViewController {
         passwordTextField.placeholder=LocalizationSystem.sharedInstance.localizedStringForKey(key: "LoginViewController_passwordTextField", comment: "")
         loginButton.setTitle(LocalizationSystem.sharedInstance.localizedStringForKey(key: "LoginViewController_loginButton", comment: ""), for: .normal)
         signUpButton.setTitle(LocalizationSystem.sharedInstance.localizedStringForKey(key: "LoginViewController_signUpButton", comment: ""), for: .normal)
+    }
+    
+    func transitionToTable() {
+        
+        let tableViewController = (storyboard?.instantiateViewController(identifier: Constants.Storyboard.tableViewController) as? TableViewController)!
+        let loginViewController = (storyboard?.instantiateViewController(identifier: Constants.Storyboard.loginViewController) as? LoginViewController)!
+        let navViewController = storyboard?.instantiateViewController(identifier: Constants.Storyboard.navigationViewController) as? UINavigationController
+        navViewController?.pushViewController(loginViewController, animated: true)
+        navViewController?.pushViewController(tableViewController, animated: true)
+        view.window?.rootViewController = navViewController
+        view.window?.makeKeyAndVisible()
+        
     }
     
 

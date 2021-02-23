@@ -142,14 +142,18 @@ class CharacterEditorViewController: UIViewController, UIImagePickerControllerDe
         
         uploadFhoto(avatarImageView){(completion) in
             if completion==nil{
-                showError("Error saving picture", errorLabel: self.errorLabel)
+                showError(LocalizationSystem.sharedInstance.localizedStringForKey(key: "SignUpViewController_avatarError", comment: ""), errorLabel: self.errorLabel)
+                self.activityIndicator.alpha=0
+                self.activityIndicator.stopAnimating()
             }
             else{
                 let url=completion?.absoluteString
                 db.collection("characters").addDocument(data: ["name":name, "avatar": url!,"stand":stand, "age": age, "season":season, "description": desc, "latitude":x,"longitude":y,"images": images, "videos": videos ]) { (error) in
                     
                     if error != nil {
-                        showError("Error saving user data", errorLabel: self.errorLabel)
+                        showError(LocalizationSystem.sharedInstance.localizedStringForKey(key: "CharacterEditViewController_dataError", comment: ""), errorLabel: self.errorLabel)
+                        self.activityIndicator.alpha=0
+                        self.activityIndicator.stopAnimating()
                     }
                     else{
                         self.transitionToTable()
@@ -167,7 +171,9 @@ class CharacterEditorViewController: UIViewController, UIImagePickerControllerDe
         if photoChanged{
             uploadFhoto(avatarImageView){(completion) in
                 if completion==nil{
-                    showError("Error saving picture", errorLabel: self.errorLabel)
+                    showError(LocalizationSystem.sharedInstance.localizedStringForKey(key: "SignUpViewController_avatarError", comment: ""), errorLabel: self.errorLabel)
+                    self.activityIndicator.alpha=0
+                    self.activityIndicator.stopAnimating()
                 }
                 else{
                     deleteDocument(avatar)
@@ -192,9 +198,11 @@ class CharacterEditorViewController: UIViewController, UIImagePickerControllerDe
         let washingtonRef = db.collection("characters").document(documentID)
         washingtonRef.updateData([
             "name":name,"stand":stand, "age": age, "season":season, "avatar": avatar, "description": desc, "latitude":x,"longitude":y
-        ]) { (error) in
+        ]) { [self] (error) in
             if error != nil {
-                showError("Error saving user data", errorLabel: self.errorLabel)
+                showError(LocalizationSystem.sharedInstance.localizedStringForKey(key:  "CharacterEditViewController_dataError", comment: ""), errorLabel: errorLabel)
+                self.activityIndicator.alpha=0
+                activityIndicator.stopAnimating()
             }
             else{
                 self.transitionToTable()              }
@@ -208,13 +216,13 @@ class CharacterEditorViewController: UIViewController, UIImagePickerControllerDe
             xTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines)=="" ||
             yTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines)==""
             {
-                return "Please fill all the text fields"
+                return LocalizationSystem.sharedInstance.localizedStringForKey(key:  "SignUpViewController_notFullError", comment: "")
             }
         
         let x = Double((xTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines))!)
         let y = Double((yTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines))!)
         if  (x == nil || x! < 0 || x! > 89.3) ||  (y == nil || y! < 0 || y! > 89.3){
-            return "Coords data must be integer or double"
+            return LocalizationSystem.sharedInstance.localizedStringForKey(key:  "CharacterEditViewController_coordsNotDouble", comment: "")
         }
             return nil
     }
@@ -245,13 +253,14 @@ class CharacterEditorViewController: UIViewController, UIImagePickerControllerDe
     
     func setElementsUp(){
         errorLabel.alpha=0
-        Utilities.styleTextField(nameTextField)
-        Utilities.styleTextField(seasonTextField)
-        Utilities.styleTextField(ageTextField)
-        Utilities.styleTextField(standTextField)
-        Utilities.styleTextField(xTextField)
-        Utilities.styleTextField(yTextField)
-        Utilities.styleButton(saveButton, type: true)
+        Utilities.styleTextField(nameTextField, colorName: "buttons_1")
+        Utilities.styleTextField(seasonTextField, colorName: "buttons_1")
+        Utilities.styleTextField(ageTextField, colorName: "buttons_1")
+        Utilities.styleTextField(standTextField, colorName: "buttons_1")
+        Utilities.styleTextField(xTextField, colorName: "buttons_1")
+        Utilities.styleTextField(yTextField, colorName: "buttons_1")
+        Utilities.styleButton(saveButton, colorName: "buttons_1")
+        Utilities.styleImageView(avatarImageView, colorName: "buttons_1")
     }
     
 }

@@ -10,7 +10,7 @@ import FirebaseAuth
 import Firebase
 import FirebaseFirestore
 
-class SignUpViewController: UIViewController {
+class SignUpViewController: UIViewController, UIImagePickerControllerDelegate & UINavigationControllerDelegate {
     
    
     @IBOutlet weak var firstNameTextField: UITextField!
@@ -27,73 +27,117 @@ class SignUpViewController: UIViewController {
     
     @IBOutlet weak var avatarImageView: UIImageView!
     
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    var imagePicker = UIImagePickerController()
+    
 
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        activityIndicator.alpha=0
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped(tapGestureRecognizer:)))
+            avatarImageView.isUserInteractionEnabled = true
+            avatarImageView.addGestureRecognizer(tapGestureRecognizer)
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setElementsUp()
         setLocalization()
+       
+    }
+    
+    @objc func imageTapped(tapGestureRecognizer: UITapGestureRecognizer)
+    {
+        if UIImagePickerController.isSourceTypeAvailable(.savedPhotosAlbum){
+                    imagePicker.delegate = self
+                    imagePicker.sourceType = .savedPhotosAlbum
+                    imagePicker.allowsEditing = false
+
+                    present(imagePicker, animated: true, completion: nil)
+                }
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        self.dismiss(animated: true, completion: { () -> Void in
+            if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+                    self.avatarImageView.image = image
+                }
+            })
     }
     
     
     @IBAction func signUpTapped(_ sender: Any) {
+        
+        activityIndicator.alpha=1
+        activityIndicator.startAnimating()
+        
         let error = validateFields()
         
         if error != nil {
-            
-            // There's something wrong with the fields, show error message
+            activityIndicator.alpha=0
+            activityIndicator.stopAnimating()
             showError(error!, errorLabel: errorLabel)
         }
         else {
-            
-            // Create cleaned versions of the data
             let firstName = firstNameTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
             let lastName = lastNameTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
             let email = emailTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
             let password = passwordTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
             
-            // Create the user
             Auth.auth().createUser(withEmail: email, password: password) { (result, err) in
                 
-                // Check for errors
                 if err != nil {
-                    
-                    // There was an error creating the user
-                    showError("Error creating user", errorLabel: self.errorLabel)
+                    showError(LocalizationSystem.sharedInstance.localizedStringForKey(key: "SignUpViewController_authError", comment: ""), errorLabel: self.errorLabel)
+                    self.activityIndicator.alpha=0
+                    self.activityIndicator.stopAnimating()
                 }
                 else {
                     
-                    // User was created successfully, now store the first name and last name
-                    let db = Firestore.firestore()
+                    uploadFhoto(self.avatarImageView){ [self](completion) in
+                        if completion==nil{
+                            showError(LocalizationSystem.sharedInstance.localizedStringForKey(key: "SignUpViewController_authError", comment: ""), errorLabel: self.errorLabel)
+                            self.activityIndicator.alpha=0
+                            self.activityIndicator.stopAnimating()
+                        }
+                        else{
+                            
+                            let url=completion?.absoluteString
+                            let db = Firestore.firestore()
                     
-                    db.collection("users").addDocument(data: ["firstname":firstName, "lastname":lastName, "email": email, "uid": result!.user.uid ]) { (error) in
+                            db.collection("users").addDocument(data: ["firstname":firstName, "lastname":lastName, "email": email, "avatar": url!, "uid": result!.user.uid ]) { [self] (error) in
                         
-                        if error != nil {
-                            // Show error message
-                            showError("Error saving user data", errorLabel: self.errorLabel)
+                                if error != nil {
+                                    showError(LocalizationSystem.sharedInstance.localizedStringForKey(key: "SignUpViewController_dataError", comment: ""), errorLabel: self.errorLabel)
+                                    self.activityIndicator.alpha=0
+                                    self.activityIndicator.stopAnimating()
+                                }
+                            }
+                            self.transitionToHome()
                         }
                     }
-                    
-                    // Transition to the home screen
-                    self.transitionToHome()
-                }
                 
             }
-        
         }
     }
+}
     
     
     func setElementsUp(){
         errorLabel.alpha=0
-        Utilities.styleTextField(emailTextField)
-        Utilities.styleTextField(passwordTextField)
-        Utilities.styleTextField(firstNameTextField)
-        Utilities.styleTextField(lastNameTextField)
-        Utilities.styleButton(signUpButton, type: false)
+        Utilities.styleTextField(emailTextField, colorName: "buttons_2")
+        Utilities.styleTextField(passwordTextField, colorName: "buttons_2")
+        Utilities.styleTextField(firstNameTextField, colorName: "buttons_2")
+        Utilities.styleTextField(lastNameTextField, colorName: "buttons_2")
+        Utilities.styleButton(signUpButton, colorName: "buttons_2")
+        Utilities.styleImageView(avatarImageView, colorName: "buttons_2")
     }
     
     
     func transitionToHome() {
+        
+        activityIndicator.alpha=0
+        activityIndicator.stopAnimating()
         
         let loginViewController = storyboard?.instantiateViewController(identifier: Constants.Storyboard.loginViewController) as? LoginViewController
         
@@ -115,15 +159,14 @@ class SignUpViewController: UIViewController {
         emailTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines)=="" ||
         passwordTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines)==""
         {
-            return "Please fill all the text fields"
+            return LocalizationSystem.sharedInstance.localizedStringForKey(key: "SignUpViewController_notFullError", comment: "")
         }
         
         let cleanedPassword = passwordTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
         
         if Utilities.isPasswordValid(cleanedPassword)==false{
-            return "Your password is not strong enough"
+            return LocalizationSystem.sharedInstance.localizedStringForKey(key: "SignUpViewController_sickPasswordError", comment: "")
         }
         return nil
     }
-
 }
