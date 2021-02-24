@@ -8,6 +8,8 @@
 import UIKit
 
 class SettingsViewController: UIViewController {
+    
+    
 
     @IBOutlet weak var titleLabel: UILabel!
     
@@ -22,6 +24,13 @@ class SettingsViewController: UIViewController {
     @IBOutlet weak var darkSwitch: UISwitch!
     
     @IBOutlet weak var languagePicker: UIPickerView!
+    
+    @IBOutlet weak var colorThemeButton: UIButton!
+    
+    @IBOutlet weak var colorPickerView: UIPickerView!
+    
+    @IBAction func colorChangedTapped(_ sender: Any) {
+    }
     
     var languages : Array<String>?
     var languagesCodes = ["en", "ru"]
@@ -44,17 +53,24 @@ class SettingsViewController: UIViewController {
         super.viewDidLoad()
         languagePicker.delegate=self
         languagePicker.dataSource=self
+        /*NotificationCenter.default.addObserver(self, selector: #selector(self.themeChanged), name: UserDefaults.didChangeNotification, object: nil)*/
     }
     
    
     
     @IBAction func switchTapped(_ sender: Any) {
-        if self.traitCollection.userInterfaceStyle == .light{
+       /* if self.traitCollection.userInterfaceStyle == .light{
             view.window!.overrideUserInterfaceStyle = .dark
         }
         else{
             view.window!.overrideUserInterfaceStyle = .light
+        }*/
+        /*if (UserDefaults.standard.bool(forKey: UserDefaultKeys.DARK.rawValue) == false){
+            view.window!.overrideUserInterfaceStyle = .light
         }
+        else{
+            view.window!.overrideUserInterfaceStyle = .dark
+        }*/
         viewDidLoad()
         
     }
@@ -64,7 +80,8 @@ class SettingsViewController: UIViewController {
         languagePicker.isHidden=false
     }
 
-    
+    @objc func themeChanged(){
+    }
     func setLocalization(){
         languages = [LocalizationSystem.sharedInstance.localizedStringForKey(key: "SettingsViewController_English", comment: ""), LocalizationSystem.sharedInstance.localizedStringForKey(key: "SettingsViewController_Russian", comment: "")]
         titleLabel.text=LocalizationSystem.sharedInstance.localizedStringForKey(key: "SettingsViewController_titleLabel", comment: "")

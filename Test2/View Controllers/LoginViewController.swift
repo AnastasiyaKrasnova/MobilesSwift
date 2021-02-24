@@ -11,7 +11,11 @@ import FirebaseStorage
 
 class LoginViewController: UIViewController {
 
-
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.themeChanged), name: UserDefaults.didChangeNotification, object: nil)
+        
+    }
     
     @IBOutlet weak var emailTextField: UITextField!
     
@@ -27,15 +31,10 @@ class LoginViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
-       
-        
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        setElementsUp()
+        setDarkMode()
+        LocalizationSystem.sharedInstance.setLanguage(languageCode:UserDefaults.standard.string(forKey: CustomSettings.UserDefaultKeys.LANG.rawValue)!)
         setLocalization()
+        setElementsUp()
     }
     
     @IBAction func loginTapped(_ sender: Any){
@@ -59,10 +58,11 @@ class LoginViewController: UIViewController {
     
     func setElementsUp(){
         errorLabel.alpha=0
-        Utilities.styleTextField(emailTextField, colorName: "buttons_1")
-        Utilities.styleTextField(passwordTextField, colorName: "buttons_1")
-        Utilities.styleButton(loginButton, colorName: "buttons_1")
-        Utilities.styleButton(signUpButton, colorName: "buttons_2")
+        print(UserDefaults.standard.string(forKey: CustomSettings.UserDefaultKeys.COLOR.rawValue)!)
+        Utilities.styleTextField(emailTextField, colorName: UserDefaults.standard.string(forKey: CustomSettings.UserDefaultKeys.COLOR.rawValue)!)
+        Utilities.styleTextField(passwordTextField, colorName: UserDefaults.standard.string(forKey: CustomSettings.UserDefaultKeys.COLOR.rawValue)!)
+        Utilities.styleButton(loginButton, colorName: UserDefaults.standard.string(forKey: CustomSettings.UserDefaultKeys.COLOR.rawValue)!)
+        Utilities.styleButton(signUpButton, colorName: UserDefaults.standard.string(forKey: CustomSettings.UserDefaultKeys.COLOR.rawValue)!)
     }
     
     
@@ -76,12 +76,27 @@ class LoginViewController: UIViewController {
     func transitionToTable() {
         
         let tableViewController = (storyboard?.instantiateViewController(identifier: Constants.Storyboard.tableViewController) as? TableViewController)!
-        let loginViewController = (storyboard?.instantiateViewController(identifier: Constants.Storyboard.loginViewController) as? LoginViewController)!
         let navViewController = storyboard?.instantiateViewController(identifier: Constants.Storyboard.navigationViewController) as? UINavigationController
-        navViewController?.pushViewController(loginViewController, animated: true)
         navViewController?.pushViewController(tableViewController, animated: true)
         view.window?.rootViewController = navViewController
         view.window?.makeKeyAndVisible()
+        
+    }
+    
+    func setDarkMode(){
+        if (UserDefaults.standard.bool(forKey: CustomSettings.UserDefaultKeys.DARK.rawValue) == false){
+            overrideUserInterfaceStyle = .light
+        }
+        else{
+            overrideUserInterfaceStyle = .dark
+        }
+    }
+    
+    @objc func themeChanged(){
+        setDarkMode()
+        LocalizationSystem.sharedInstance.setLanguage(languageCode:UserDefaults.standard.string(forKey: CustomSettings.UserDefaultKeys.LANG.rawValue)!)
+        setLocalization()
+        setElementsUp()
         
     }
     

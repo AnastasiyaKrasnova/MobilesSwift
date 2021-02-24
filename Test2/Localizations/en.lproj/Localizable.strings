@@ -2,15 +2,9 @@
   Localizable.strings
   Test2
 
-  Created by NASTUSYA on 2/22/21.
+  Created by NASTUSYA on 2/24/21.
   
 */
-"SettingsViewController_titleLabel" = "Custom Settings";
-"SettingsViewController_langLabel" = "App Language";
-"SettingsViewController_colorLabel" = "Color Theme";
-"SettingsViewController_darkModeLabel" = "Dark Mode";
-"SettingsViewController_changeLanguageButton" = "Change Language";
-
 "DetailedViewController_descriptionStaticLabel" = "Description:";
 "DetailedViewController_standStaticLabel" = "Stand:";
 "DetailedViewController_seasonStaticLabel" = "Season:";
@@ -43,4 +37,3 @@
 
 "CharacterEditViewController_coordsNotDouble" = "Coords must be of valid numeric type";
 "CharacterEditViewController_dataError" = "Unable to save data";
-

@@ -14,17 +14,13 @@ import FirebaseUI
 
 class TableViewController: UIViewController{
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        let cells = self.tableView.visibleCells as! Array<CharacterTableViewCell>
-
-            for cell in cells {
-                cell.setLocalization()
-                cell.setUpElements()
-            }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.themeChanged), name: UserDefaults.didChangeNotification, object: nil)
         
     }
-    
+
     var data=Array<QueryDocumentSnapshot>()
   
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
@@ -32,9 +28,27 @@ class TableViewController: UIViewController{
     @IBOutlet weak var tableView: UITableView!
     
     
+    @IBAction func settingsTapped(_ sender: Any) {
+        
+        let tableViewController = (storyboard?.instantiateViewController(identifier: Constants.Storyboard.tableViewController) as? TableViewController)!
+        let navViewController = storyboard?.instantiateViewController(identifier: Constants.Storyboard.navigationViewController) as? UINavigationController
+        navViewController?.pushViewController(tableViewController, animated: true)
+        view.window?.rootViewController = navViewController
+        guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else {
+                    return
+                }
+
+                if UIApplication.shared.canOpenURL(settingsUrl) {
+                    UIApplication.shared.open(settingsUrl, completionHandler: { (success) in
+                        print("Settings opened: \(success)") // Prints true
+                    })
+                }
+        
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+    
         activityIndicator.alpha=1
         activityIndicator.startAnimating()
         
@@ -73,6 +87,22 @@ class TableViewController: UIViewController{
                 let destVC=segue.destination as! MapsViewController
                 destVC.data=data
         }
+    }
+    
+    @objc func themeChanged(){
+        if (UserDefaults.standard.bool(forKey: CustomSettings.UserDefaultKeys.DARK.rawValue) == false){
+            overrideUserInterfaceStyle = .light
+        }
+        else{
+            overrideUserInterfaceStyle = .dark
+        }
+        LocalizationSystem.sharedInstance.setLanguage(languageCode:UserDefaults.standard.string(forKey: CustomSettings.UserDefaultKeys.LANG.rawValue)!)
+        let cells = self.tableView.visibleCells as! Array<CharacterTableViewCell>
+
+            for cell in cells {
+                cell.setLocalization()
+                cell.setUpElements()
+            }
     }
 }
 
@@ -114,6 +144,7 @@ extension TableViewController: UITableViewDelegate,UITableViewDataSource {
         return cell
     }
     
+    
 }
 
 
@@ -141,11 +172,19 @@ class CharacterTableViewCell: UITableViewCell {
     }
     
     public func setUpElements(){
-        //Utilities.styleImageView(avatarImageView, colorName: "buttons_1")
-        Utilities.styleLabel(nameLabel, colorName: "buttons_1")
-        Utilities.styleLabel(standLabel, colorName: "buttons_1")
-        Utilities.styleLabel(ageLabel, colorName: "buttons_1")
-        Utilities.styleLabel(seasonLabel, colorName: "buttons_1")
+        Utilities.styleLabel(nameLabel, colorName: UserDefaults.standard.string(forKey: CustomSettings.UserDefaultKeys.COLOR.rawValue)!)
+        Utilities.styleLabel(standLabel, colorName: UserDefaults.standard.string(forKey: CustomSettings.UserDefaultKeys.COLOR.rawValue)!)
+        Utilities.styleLabel(ageLabel, colorName: UserDefaults.standard.string(forKey: CustomSettings.UserDefaultKeys.COLOR.rawValue)!)
+        Utilities.styleLabel(seasonLabel, colorName: UserDefaults.standard.string(forKey: CustomSettings.UserDefaultKeys.COLOR.rawValue)!)
+    }
+    
+    func setDarkMode(){
+        if (UserDefaults.standard.bool(forKey: CustomSettings.UserDefaultKeys.DARK.rawValue) == false){
+            overrideUserInterfaceStyle = .light
+        }
+        else{
+            overrideUserInterfaceStyle = .dark
+        }
     }
     
 }

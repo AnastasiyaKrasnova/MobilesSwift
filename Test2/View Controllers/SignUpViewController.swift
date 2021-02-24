@@ -12,6 +12,12 @@ import FirebaseFirestore
 
 class SignUpViewController: UIViewController, UIImagePickerControllerDelegate & UINavigationControllerDelegate {
     
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.themeChanged), name: UserDefaults.didChangeNotification, object: nil)
+        
+    }
+    
    
     @IBOutlet weak var firstNameTextField: UITextField!
     
@@ -34,18 +40,15 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate & 
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setElementsUp()
+        setLocalization()
+        
         activityIndicator.alpha=0
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped(tapGestureRecognizer:)))
             avatarImageView.isUserInteractionEnabled = true
             avatarImageView.addGestureRecognizer(tapGestureRecognizer)
     }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        setElementsUp()
-        setLocalization()
-       
-    }
+
     
     @objc func imageTapped(tapGestureRecognizer: UITapGestureRecognizer)
     {
@@ -125,12 +128,12 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate & 
     
     func setElementsUp(){
         errorLabel.alpha=0
-        Utilities.styleTextField(emailTextField, colorName: "buttons_2")
-        Utilities.styleTextField(passwordTextField, colorName: "buttons_2")
-        Utilities.styleTextField(firstNameTextField, colorName: "buttons_2")
-        Utilities.styleTextField(lastNameTextField, colorName: "buttons_2")
-        Utilities.styleButton(signUpButton, colorName: "buttons_2")
-        Utilities.styleImageView(avatarImageView, colorName: "buttons_2")
+        Utilities.styleTextField(emailTextField, colorName: "buttons_1")
+        Utilities.styleTextField(passwordTextField, colorName: "buttons_1")
+        Utilities.styleTextField(firstNameTextField, colorName: "buttons_1")
+        Utilities.styleTextField(lastNameTextField, colorName: "buttons_1")
+        Utilities.styleButton(signUpButton, colorName: "buttons_1")
+        Utilities.styleImageView(avatarImageView, colorName: "buttons_1")
     }
     
     
@@ -168,5 +171,22 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate & 
             return LocalizationSystem.sharedInstance.localizedStringForKey(key: "SignUpViewController_sickPasswordError", comment: "")
         }
         return nil
+    }
+    
+    func setDarkMode(){
+        if (UserDefaults.standard.bool(forKey: CustomSettings.UserDefaultKeys.DARK.rawValue) == false){
+            overrideUserInterfaceStyle = .light
+        }
+        else{
+            overrideUserInterfaceStyle = .dark
+        }
+    }
+    
+    @objc func themeChanged(){
+        setDarkMode()
+        LocalizationSystem.sharedInstance.setLanguage(languageCode:UserDefaults.standard.string(forKey: CustomSettings.UserDefaultKeys.LANG.rawValue)!)
+        setLocalization()
+        setElementsUp()
+        
     }
 }

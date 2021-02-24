@@ -11,6 +11,11 @@ import AVKit
 
 class CharacterPhotoViewController: UIViewController {
 
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.themeChanged), name: UserDefaults.didChangeNotification, object: nil)
+        
+    }
     
     @IBOutlet weak var photoCollectionView: UICollectionView!
     
@@ -83,6 +88,17 @@ extension CharacterPhotoViewController: UICollectionViewDataSource{
         }
         return cell
     }
+    
+    @objc func themeChanged(){
+        setDarkMode()
+        LocalizationSystem.sharedInstance.setLanguage(languageCode:UserDefaults.standard.string(forKey: CustomSettings.UserDefaultKeys.LANG.rawValue)!)
+        let cells = self.photoCollectionView.visibleCells as! Array<CharacterPhotoCell>
+
+            for cell in cells {
+                cell.setUpElements()
+            }
+        
+    }
 }
 
 extension CharacterPhotoViewController: UICollectionViewDelegateFlowLayout{
@@ -100,6 +116,15 @@ extension CharacterPhotoViewController: UICollectionViewDelegateFlowLayout{
         let size = Int((collectionView.bounds.width - totalSpace) / CGFloat(noOfCellsInRow))
 
         return CGSize(width: size, height: size)
+    }
+    
+    func setDarkMode(){
+        if (UserDefaults.standard.bool(forKey: CustomSettings.UserDefaultKeys.DARK.rawValue) == false){
+            overrideUserInterfaceStyle = .light
+        }
+        else{
+            overrideUserInterfaceStyle = .dark
+        }
     }
 }
 

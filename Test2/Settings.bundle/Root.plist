@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>StringsTable</key>
+	<string>Root</string>
+	<key>PreferenceSpecifiers</key>
+	<array>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>Languages</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSMultiValueSpecifier</string>
+			<key>Title</key>
+			<string>Preffered languages</string>
+			<key>Titles</key>
+			<array>
+				<string>English</string>
+				<string>Russian</string>
+			</array>
+			<key>Values</key>
+			<array>
+				<string>en</string>
+				<string>ru</string>
+			</array>
+			<key>Key</key>
+			<string>PREFFERED_LANGUAGE</string>
+			<key>DefaultValue</key>
+			<string>ru</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>Theme settings</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Dark theme</string>
+			<key>DefaultValue</key>
+			<integer>0</integer>
+			<key>Key</key>
+			<string>DARK_THEME</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSMultiValueSpecifier</string>
+			<key>Titles</key>
+			<array>
+				<string>Phantom Blood</string>
+				<string>Battle Tendenct</string>
+				<string>Stardust Crusaders</string>
+				<string>Diamod is Unbreakable</string>
+				<string>Golden wind</string>
+				<string>Stone Ocean</string>
+				<string>Steel Ball Run</string>
+			</array>
+			<key>Values</key>
+			<array>
+				<string>Phantom</string>
+				<string>Battle</string>
+				<string>Stardust</string>
+				<string>Diamond</string>
+				<string>Wind</string>
+				<string>Ocean</string>
+				<string>Run</string>
+			</array>
+			<key>Title</key>
+			<string>Color Theme</string>
+			<key>Key</key>
+			<string>COLOR_THEME</string>
+			<key>DefaultValue</key>
+			<string>Phantom Blood</string>
+		</dict>
+	</array>
+</dict>
+</plist>

@@ -9,6 +9,12 @@ import UIKit
 import FirebaseFirestore
 
 class DetailedViewController: UIViewController {
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.themeChanged), name: UserDefaults.didChangeNotification, object: nil)
+        
+    }
 
     @IBOutlet weak var nameStaticLabel: UILabel!
     @IBOutlet weak var ageStaticLabel: UILabel!
@@ -34,7 +40,7 @@ class DetailedViewController: UIViewController {
         super.viewWillAppear(animated)
         
         setLocalization()
-        setUpElements()
+        setElementsUp()
         
         if data==nil{
             print("Error on segue")
@@ -76,12 +82,29 @@ class DetailedViewController: UIViewController {
         descriptionStaticLabel.text=LocalizationSystem.sharedInstance.localizedStringForKey(key: "DetailedViewController_descriptionStaticLabel", comment: "")
     }
     
-    public func setUpElements(){
+    public func setElementsUp(){
         //Utilities.styleImageView(avatarImageView, colorName: "buttons_2")
-        Utilities.styleLabel(nameLabel, colorName: "buttons_2")
-        Utilities.styleLabel(standLabel, colorName: "buttons_2")
-        Utilities.styleLabel(ageLabel, colorName: "buttons_2")
-        Utilities.styleLabel(seasonLabel, colorName: "buttons_2")
+        Utilities.styleLabel(nameLabel, colorName: "buttons_1")
+        Utilities.styleLabel(standLabel, colorName: "buttons_1")
+        Utilities.styleLabel(ageLabel, colorName: "buttons_1")
+        Utilities.styleLabel(seasonLabel, colorName: "buttons_1")
+    }
+    
+    func setDarkMode(){
+        if (UserDefaults.standard.bool(forKey: CustomSettings.UserDefaultKeys.DARK.rawValue) == false){
+            overrideUserInterfaceStyle = .light
+        }
+        else{
+            overrideUserInterfaceStyle = .dark
+        }
+    }
+    
+    @objc func themeChanged(){
+        setDarkMode()
+        LocalizationSystem.sharedInstance.setLanguage(languageCode:UserDefaults.standard.string(forKey: CustomSettings.UserDefaultKeys.LANG.rawValue)!)
+        setLocalization()
+        setElementsUp()
+        
     }
 
 }

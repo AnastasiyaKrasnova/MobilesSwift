@@ -26,6 +26,9 @@
 /* Class = "UIBarButtonItem"; title = "Item"; ObjectID = "7cX-11-QDr"; */
 "7cX-11-QDr.title" = "Item";
 
+/* Class = "UILabel"; text = "Label"; ObjectID = "8nc-CC-6Om"; */
+"8nc-CC-6Om.text" = "Label";
+
 /* Class = "UILabel"; text = "Label"; ObjectID = "BZV-Yq-dQ5"; */
 "BZV-Yq-dQ5.text" = "Label";
 
@@ -35,8 +38,8 @@
 /* Class = "UILabel"; text = "Description:"; ObjectID = "GEi-Vm-wUa"; */
 "GEi-Vm-wUa.text" = "Description:";
 
-/* Class = "UILabel"; text = "Label"; ObjectID = "GXS-gr-C4B"; */
-"GXS-gr-C4B.text" = "Label";
+/* Class = "UILabel"; text = "Error"; ObjectID = "GXS-gr-C4B"; */
+"GXS-gr-C4B.text" = "Error";
 
 /* Class = "UITextField"; placeholder = "Enter password"; ObjectID = "Jc2-Jn-UvA"; */
 "Jc2-Jn-UvA.placeholder" = "Enter password";
@@ -59,8 +62,11 @@
 /* Class = "UIBarButtonItem"; title = "Back"; ObjectID = "Xth-5z-wlK"; */
 "Xth-5z-wlK.title" = "Back";
 
-/* Class = "UILabel"; text = "Label"; ObjectID = "Y0J-lV-Gtn"; */
-"Y0J-lV-Gtn.text" = "Label";
+/* Class = "UILabel"; text = "13"; ObjectID = "Y0J-lV-Gtn"; */
+"Y0J-lV-Gtn.text" = "13";
+
+/* Class = "UIButton"; normalTitle = "Change Language"; ObjectID = "ZpZ-GU-VkY"; */
+"ZpZ-GU-VkY.normalTitle" = "Change Language";
 
 /* Class = "UIButton"; normalTitle = "Log In"; ObjectID = "bkA-PX-JvC"; */
 "bkA-PX-JvC.normalTitle" = "Log In";
@@ -86,8 +92,14 @@
 /* Class = "UILabel"; text = "Stand:"; ObjectID = "pZw-nG-MvP"; */
 "pZw-nG-MvP.text" = "Stand:";
 
+/* Class = "UILabel"; text = "Label"; ObjectID = "rPz-9k-PQ5"; */
+"rPz-9k-PQ5.text" = "Label";
+
 /* Class = "UILabel"; text = "Dark Mode:"; ObjectID = "s65-Mc-LnW"; */
 "s65-Mc-LnW.text" = "Dark Mode:";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "sDF-vN-9Ua"; */
+"sDF-vN-9Ua.normalTitle" = "Button";
 
 /* Class = "UILabel"; text = "Custom Settings"; ObjectID = "tNs-dL-X3s"; */
 "tNs-dL-X3s.text" = "Custom Settings";

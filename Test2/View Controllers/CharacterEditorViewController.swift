@@ -12,6 +12,12 @@ import FirebaseStorage
 
 class CharacterEditorViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.themeChanged), name: UserDefaults.didChangeNotification, object: nil)
+        
+    }
+    
     var inEditing: Bool!
     
     var photoChanged: Bool!
@@ -261,6 +267,23 @@ class CharacterEditorViewController: UIViewController, UIImagePickerControllerDe
         Utilities.styleTextField(yTextField, colorName: "buttons_1")
         Utilities.styleButton(saveButton, colorName: "buttons_1")
         Utilities.styleImageView(avatarImageView, colorName: "buttons_1")
+    }
+    
+    func setDarkMode(){
+        if (UserDefaults.standard.bool(forKey: CustomSettings.UserDefaultKeys.DARK.rawValue) == false){
+            overrideUserInterfaceStyle = .light
+        }
+        else{
+            overrideUserInterfaceStyle = .dark
+        }
+    }
+    
+    @objc func themeChanged(){
+        setDarkMode()
+        LocalizationSystem.sharedInstance.setLanguage(languageCode:UserDefaults.standard.string(forKey: CustomSettings.UserDefaultKeys.LANG.rawValue)!)
+        setLocalization()
+        setElementsUp()
+        
     }
     
 }
