@@ -27,7 +27,6 @@ class TableViewController: UIViewController{
     
     @IBOutlet weak var tableView: UITableView!
     
-    
     @IBAction func settingsTapped(_ sender: Any) {
         
         let tableViewController = (storyboard?.instantiateViewController(identifier: Constants.Storyboard.tableViewController) as? TableViewController)!
@@ -92,7 +91,6 @@ class TableViewController: UIViewController{
     
     @objc func themeChanged(){
         setDarkMode()
-        LocalizationSystem.sharedInstance.setLanguage(languageCode:UserDefaults.standard.string(forKey: CustomSettings.UserDefaultKeys.LANG.rawValue)!)
         let cells = self.tableView.visibleCells as! Array<CharacterTableViewCell>
 
             for cell in cells {
@@ -152,7 +150,6 @@ extension TableViewController: UITableViewDelegate,UITableViewDataSource {
     
 }
 
-
 class CharacterTableViewCell: UITableViewCell {
 
    
@@ -172,8 +169,8 @@ class CharacterTableViewCell: UITableViewCell {
     @IBOutlet weak var seasonStaticLabel: UILabel!
     
     public func setLocalization(){
-        seasonStaticLabel.text=LocalizationSystem.sharedInstance.localizedStringForKey(key: "DetailedViewController_seasonStaticLabel", comment: "")
-        ageStaticLabel.text=LocalizationSystem.sharedInstance.localizedStringForKey(key: "DetailedViewController_ageStaticLabel", comment: "")
+        seasonStaticLabel.text=NSLocalizedString( "DetailedViewController_seasonStaticLabel", comment: "")
+        ageStaticLabel.text=NSLocalizedString( "DetailedViewController_ageStaticLabel", comment: "")
     }
     
     public func setUpElements(){

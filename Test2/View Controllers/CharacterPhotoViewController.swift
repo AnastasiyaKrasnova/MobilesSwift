@@ -18,6 +18,7 @@ class CharacterPhotoViewController: UIViewController {
     }
     
     @IBOutlet weak var photoCollectionView: UICollectionView!
+
     
     var photos: Array<String>?
     var videos: Array<String>?
@@ -25,12 +26,11 @@ class CharacterPhotoViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        
+        setDarkMode()
         photoCollectionView.delegate=self
         photoCollectionView.dataSource=self
-        
-        
     }
+    
     
     func openVideoPlayer(_ ref: String){
         
@@ -40,6 +40,15 @@ class CharacterPhotoViewController: UIViewController {
         let vc = AVPlayerViewController()
         vc.player = player
         self.present(vc, animated: true) { vc.player?.play() }
+    }
+    
+    func setDarkMode(){
+        if (UserDefaults.standard.bool(forKey: CustomSettings.UserDefaultKeys.DARK.rawValue) == false){
+            overrideUserInterfaceStyle = .light
+        }
+        else{
+            overrideUserInterfaceStyle = .dark
+        }
     }
 
 }
@@ -91,7 +100,6 @@ extension CharacterPhotoViewController: UICollectionViewDataSource{
     
     @objc func themeChanged(){
         setDarkMode()
-        LocalizationSystem.sharedInstance.setLanguage(languageCode:UserDefaults.standard.string(forKey: CustomSettings.UserDefaultKeys.LANG.rawValue)!)
         let cells = self.photoCollectionView.visibleCells as! Array<CharacterPhotoCell>
 
             for cell in cells {
@@ -116,15 +124,6 @@ extension CharacterPhotoViewController: UICollectionViewDelegateFlowLayout{
         let size = Int((collectionView.bounds.width - totalSpace) / CGFloat(noOfCellsInRow))
 
         return CGSize(width: size, height: size)
-    }
-    
-    func setDarkMode(){
-        if (UserDefaults.standard.bool(forKey: CustomSettings.UserDefaultKeys.DARK.rawValue) == false){
-            overrideUserInterfaceStyle = .light
-        }
-        else{
-            overrideUserInterfaceStyle = .dark
-        }
     }
 }
 

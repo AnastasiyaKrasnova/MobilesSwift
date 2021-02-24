@@ -17,6 +17,7 @@
 "LoginViewController_signUpButton" = "Sign Up";
 "LoginViewController_loginButton" = "Log In";
 "LoginViewController_loginError" = "Email or password is incorrect" ;
+"LoginViewController_backButton" ="Back";
 
 "CharacterEditorViewController_nameTextField" = "Enter Name";
 "CharacterEditorViewController_ageTextField" = "Enter Age";

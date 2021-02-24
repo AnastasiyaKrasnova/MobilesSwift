@@ -92,7 +92,7 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate & 
             Auth.auth().createUser(withEmail: email, password: password) { (result, err) in
                 
                 if err != nil {
-                    showError(LocalizationSystem.sharedInstance.localizedStringForKey(key: "SignUpViewController_authError", comment: ""), errorLabel: self.errorLabel)
+                    showError(NSLocalizedString( "SignUpViewController_authError", comment: ""), errorLabel: self.errorLabel)
                     self.activityIndicator.alpha=0
                     self.activityIndicator.stopAnimating()
                 }
@@ -100,7 +100,7 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate & 
                     
                     uploadFhoto(self.avatarImageView){ [self](completion) in
                         if completion==nil{
-                            showError(LocalizationSystem.sharedInstance.localizedStringForKey(key: "SignUpViewController_authError", comment: ""), errorLabel: self.errorLabel)
+                            showError(NSLocalizedString( "SignUpViewController_authError", comment: ""), errorLabel: self.errorLabel)
                             self.activityIndicator.alpha=0
                             self.activityIndicator.stopAnimating()
                         }
@@ -112,7 +112,7 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate & 
                             db.collection("users").addDocument(data: ["firstname":firstName, "lastname":lastName, "email": email, "avatar": url!, "uid": result!.user.uid ]) { [self] (error) in
                         
                                 if error != nil {
-                                    showError(LocalizationSystem.sharedInstance.localizedStringForKey(key: "SignUpViewController_dataError", comment: ""), errorLabel: self.errorLabel)
+                                    showError(NSLocalizedString( "SignUpViewController_dataError", comment: ""), errorLabel: self.errorLabel)
                                     self.activityIndicator.alpha=0
                                     self.activityIndicator.stopAnimating()
                                 }
@@ -154,11 +154,11 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate & 
     }
     
     func setLocalization(){
-        emailTextField.placeholder=LocalizationSystem.sharedInstance.localizedStringForKey(key: "LoginViewController_emailTextField", comment: "")
-        passwordTextField.placeholder=LocalizationSystem.sharedInstance.localizedStringForKey(key: "LoginViewController_passwordTextField", comment: "")
-        firstNameTextField.placeholder=LocalizationSystem.sharedInstance.localizedStringForKey(key: "LoginViewController_firstNameTextField", comment: "")
-        lastNameTextField.placeholder=LocalizationSystem.sharedInstance.localizedStringForKey(key: "LoginViewController_lastNameTextField", comment: "")
-        signUpButton.setTitle(LocalizationSystem.sharedInstance.localizedStringForKey(key: "LoginViewController_signUpButton", comment: ""), for: .normal)
+        emailTextField.placeholder=NSLocalizedString("LoginViewController_emailTextField", comment: "")
+        passwordTextField.placeholder=NSLocalizedString("LoginViewController_passwordTextField", comment: "")
+        firstNameTextField.placeholder=NSLocalizedString("LoginViewController_firstNameTextField", comment: "")
+        lastNameTextField.placeholder=NSLocalizedString("LoginViewController_lastNameTextField", comment: "")
+        signUpButton.setTitle(NSLocalizedString( "LoginViewController_signUpButton", comment: ""), for: .normal)
     }
     
     func validateFields()->String?{
@@ -166,13 +166,13 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate & 
         emailTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines)=="" ||
         passwordTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines)==""
         {
-            return LocalizationSystem.sharedInstance.localizedStringForKey(key: "SignUpViewController_notFullError", comment: "")
+            return NSLocalizedString( "SignUpViewController_notFullError", comment: "")
         }
         
         let cleanedPassword = passwordTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
         
         if Utilities.isPasswordValid(cleanedPassword)==false{
-            return LocalizationSystem.sharedInstance.localizedStringForKey(key: "SignUpViewController_sickPasswordError", comment: "")
+            return NSLocalizedString( "SignUpViewController_sickPasswordError", comment: "")
         }
         return nil
     }
@@ -188,7 +188,6 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate & 
     
     @objc func themeChanged(){
         setDarkMode()
-        LocalizationSystem.sharedInstance.setLanguage(languageCode:UserDefaults.standard.string(forKey: CustomSettings.UserDefaultKeys.LANG.rawValue)!)
         setLocalization()
         setElementsUp()
         

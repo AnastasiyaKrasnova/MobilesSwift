@@ -47,11 +47,14 @@ class CharacterEditorViewController: UIViewController, UIImagePickerControllerDe
     @IBOutlet weak var errorLabel: UILabel!
     
     @IBOutlet weak var saveButton: UIButton!
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
+    
+        setDarkMode()
+        setElementsUp()
+        setLocalization()
         activityIndicator.alpha=0
         
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped(tapGestureRecognizer:)))
@@ -63,8 +66,6 @@ class CharacterEditorViewController: UIViewController, UIImagePickerControllerDe
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        setLocalization()
-        setElementsUp()
         photoChanged=false
         
         if data==nil{
@@ -148,7 +149,7 @@ class CharacterEditorViewController: UIViewController, UIImagePickerControllerDe
         
         uploadFhoto(avatarImageView){(completion) in
             if completion==nil{
-                showError(LocalizationSystem.sharedInstance.localizedStringForKey(key: "SignUpViewController_avatarError", comment: ""), errorLabel: self.errorLabel)
+                showError(NSLocalizedString( "SignUpViewController_avatarError", comment: ""), errorLabel: self.errorLabel)
                 self.activityIndicator.alpha=0
                 self.activityIndicator.stopAnimating()
             }
@@ -157,7 +158,7 @@ class CharacterEditorViewController: UIViewController, UIImagePickerControllerDe
                 db.collection("characters").addDocument(data: ["name":name, "avatar": url!,"stand":stand, "age": age, "season":season, "description": desc, "latitude":x,"longitude":y,"images": images, "videos": videos ]) { (error) in
                     
                     if error != nil {
-                        showError(LocalizationSystem.sharedInstance.localizedStringForKey(key: "CharacterEditViewController_dataError", comment: ""), errorLabel: self.errorLabel)
+                        showError(NSLocalizedString( "CharacterEditViewController_dataError", comment: ""), errorLabel: self.errorLabel)
                         self.activityIndicator.alpha=0
                         self.activityIndicator.stopAnimating()
                     }
@@ -177,7 +178,7 @@ class CharacterEditorViewController: UIViewController, UIImagePickerControllerDe
         if photoChanged{
             uploadFhoto(avatarImageView){(completion) in
                 if completion==nil{
-                    showError(LocalizationSystem.sharedInstance.localizedStringForKey(key: "SignUpViewController_avatarError", comment: ""), errorLabel: self.errorLabel)
+                    showError(NSLocalizedString( "SignUpViewController_avatarError", comment: ""), errorLabel: self.errorLabel)
                     self.activityIndicator.alpha=0
                     self.activityIndicator.stopAnimating()
                 }
@@ -206,7 +207,7 @@ class CharacterEditorViewController: UIViewController, UIImagePickerControllerDe
             "name":name,"stand":stand, "age": age, "season":season, "avatar": avatar, "description": desc, "latitude":x,"longitude":y
         ]) { [self] (error) in
             if error != nil {
-                showError(LocalizationSystem.sharedInstance.localizedStringForKey(key:  "CharacterEditViewController_dataError", comment: ""), errorLabel: errorLabel)
+                showError(NSLocalizedString(  "CharacterEditViewController_dataError", comment: ""), errorLabel: errorLabel)
                 self.activityIndicator.alpha=0
                 activityIndicator.stopAnimating()
             }
@@ -222,26 +223,26 @@ class CharacterEditorViewController: UIViewController, UIImagePickerControllerDe
             xTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines)=="" ||
             yTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines)==""
             {
-                return LocalizationSystem.sharedInstance.localizedStringForKey(key:  "SignUpViewController_notFullError", comment: "")
+                return NSLocalizedString("SignUpViewController_notFullError", comment: "")
             }
         
         let x = Double((xTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines))!)
         let y = Double((yTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines))!)
         if  (x == nil || x! < 0 || x! > 89.3) ||  (y == nil || y! < 0 || y! > 89.3){
-            return LocalizationSystem.sharedInstance.localizedStringForKey(key:  "CharacterEditViewController_coordsNotDouble", comment: "")
+            return NSLocalizedString("CharacterEditViewController_coordsNotDouble", comment: "")
         }
             return nil
     }
 
     
     func setLocalization(){
-        nameTextField.placeholder=LocalizationSystem.sharedInstance.localizedStringForKey(key: "CharacterEditorViewController_nameTextField", comment: "")
-        standTextField.placeholder=LocalizationSystem.sharedInstance.localizedStringForKey(key: "CharacterEditorViewController_standTextField", comment: "")
-        ageTextField.placeholder=LocalizationSystem.sharedInstance.localizedStringForKey(key: "CharacterEditorViewController_ageTextField", comment: "")
-        seasonTextField.placeholder=LocalizationSystem.sharedInstance.localizedStringForKey(key: "CharacterEditorViewController_seasonTextField", comment: "")
-        xTextField.placeholder=LocalizationSystem.sharedInstance.localizedStringForKey(key: "CharacterEditorViewController_xTextField", comment: "")
-        yTextField.placeholder=LocalizationSystem.sharedInstance.localizedStringForKey(key: "CharacterEditorViewController_yTextField", comment: "")
-        saveButton.setTitle(LocalizationSystem.sharedInstance.localizedStringForKey(key: "CharacterEditorViewController_saveButton", comment: ""), for: .normal)
+        nameTextField.placeholder=NSLocalizedString( "CharacterEditorViewController_nameTextField", comment: "")
+        standTextField.placeholder=NSLocalizedString( "CharacterEditorViewController_standTextField", comment: "")
+        ageTextField.placeholder=NSLocalizedString( "CharacterEditorViewController_ageTextField", comment: "")
+        seasonTextField.placeholder=NSLocalizedString( "CharacterEditorViewController_seasonTextField", comment: "")
+        xTextField.placeholder=NSLocalizedString( "CharacterEditorViewController_xTextField", comment: "")
+        yTextField.placeholder=NSLocalizedString( "CharacterEditorViewController_yTextField", comment: "")
+        saveButton.setTitle(NSLocalizedString( "CharacterEditorViewController_saveButton", comment: ""), for: .normal)
     }
     
     func transitionToTable() {
@@ -271,6 +272,7 @@ class CharacterEditorViewController: UIViewController, UIImagePickerControllerDe
         Utilities.styleTextField(xTextField, colorName: color, fontName: font, fontSize: size)
         Utilities.styleTextField(yTextField, colorName: color, fontName: font, fontSize: size)
         Utilities.styleButton(saveButton, colorName: color, fontName: font, fontSize: size)
+        
         Utilities.styleImageView(avatarImageView, colorName: color)
     }
     
@@ -285,7 +287,6 @@ class CharacterEditorViewController: UIViewController, UIImagePickerControllerDe
     
     @objc func themeChanged(){
         setDarkMode()
-        LocalizationSystem.sharedInstance.setLanguage(languageCode:UserDefaults.standard.string(forKey: CustomSettings.UserDefaultKeys.LANG.rawValue)!)
         setLocalization()
         setElementsUp()
         

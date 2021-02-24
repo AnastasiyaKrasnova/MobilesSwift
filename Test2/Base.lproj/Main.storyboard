@@ -24,7 +24,7 @@
                                 <preferredSymbolConfiguration key="preferredSymbolConfiguration" weight="thin"/>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="wbk-Zz-pL0">
-                                <rect key="frame" x="40" y="297" width="295" height="330"/>
+                                <rect key="frame" x="40" y="248" width="295" height="330"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VaR-yF-CvH">
                                         <rect key="frame" x="0.0" y="0.0" width="295" height="50"/>
@@ -76,7 +76,9 @@
                             <constraint firstItem="wbk-Zz-pL0" firstAttribute="leading" secondItem="iP7-ch-H38" secondAttribute="leading" constant="40" id="fpI-Fa-C3L"/>
                         </constraints>
                     </view>
+                    <toolbarItems/>
                     <navigationItem key="navigationItem" id="1iD-jW-MpI"/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="emailTextField" destination="hTw-e1-v9e" id="VzW-uo-ExB"/>
                         <outlet property="errorLabel" destination="VaR-yF-CvH" id="wF1-w4-rJ8"/>
@@ -103,10 +105,10 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="Nez-VN-hyl">
-                                <rect key="frame" x="40" y="301" width="295" height="326"/>
+                                <rect key="frame" x="40" y="301" width="295" height="304"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="o7a-BX-pS8">
-                                        <rect key="frame" x="0.0" y="0.0" width="295" height="37.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="295" height="34"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="45" id="2aZ-4R-zKT"/>
                                         </constraints>
@@ -114,29 +116,29 @@
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="oQq-VF-Y1H">
-                                        <rect key="frame" x="0.0" y="57.5" width="295" height="38"/>
+                                        <rect key="frame" x="0.0" y="54" width="295" height="34"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ol6-mc-WEe">
-                                        <rect key="frame" x="0.0" y="115.5" width="295" height="37.5"/>
+                                        <rect key="frame" x="0.0" y="108" width="295" height="34"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="R4o-X2-koy">
-                                        <rect key="frame" x="0.0" y="173" width="295" height="37.5"/>
+                                        <rect key="frame" x="0.0" y="162" width="295" height="34"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TA2-gX-Z6E">
-                                        <rect key="frame" x="0.0" y="230.5" width="295" height="38"/>
+                                        <rect key="frame" x="0.0" y="216" width="295" height="34"/>
                                         <state key="normal" title="Sign Up"/>
                                         <connections>
                                             <action selector="signUpTapped:" destination="DAp-2G-cMN" eventType="touchUpInside" id="uZ6-0d-kup"/>
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1pm-kc-S1Q">
-                                        <rect key="frame" x="0.0" y="288.5" width="295" height="37.5"/>
+                                        <rect key="frame" x="0.0" y="270" width="295" height="34"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" systemColor="systemPinkColor"/>
                                         <nil key="highlightedColor"/>
@@ -160,8 +162,7 @@
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="wEG-o5-SRW">
                                 <rect key="frame" x="189" y="273" width="20" height="20"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" name="buttons_1"/>
-                                <color key="tintColor" name="buttons_1"/>
+                                <color key="color" name="Phantom"/>
                             </activityIndicatorView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="aNt-mR-Hkt"/>
@@ -424,15 +425,13 @@
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="large" id="l3a-0T-Mke">
                                 <rect key="frame" x="0.0" y="323" width="375" height="20"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="tintColor" name="buttons_1"/>
-                                <color key="color" name="buttons_1"/>
+                                <color key="color" name="Phantom"/>
                             </activityIndicatorView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="giw-BA-jzX"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <navigationItem key="navigationItem" id="akz-5w-iik">
-                        <barButtonItem key="backBarButtonItem" title="Back" id="Xth-5z-wlK"/>
                         <rightBarButtonItems>
                             <barButtonItem title="Delete" image="gearshape" catalog="system" id="yRj-XC-o9X">
                                 <connections>
@@ -536,6 +535,11 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="Eag-sc-287">
+                                <rect key="frame" x="177" y="194" width="20" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="color" systemColor="systemRedColor"/>
+                            </activityIndicatorView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="lvC-Mh-xUo"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -586,12 +590,14 @@
                             </barButtonItem>
                             <barButtonItem title="Images" image="photo.on.rectangle.fill" catalog="system" id="kXc-2n-jd6">
                                 <connections>
+                                    <action selector="tapped:" destination="uHD-fg-iq6" id="fe9-X0-vRA"/>
                                     <segue destination="4ct-xd-AI7" kind="show" identifier="photoSegue" id="CXM-Tw-u9n"/>
                                 </connections>
                             </barButtonItem>
                         </rightBarButtonItems>
                     </navigationItem>
                     <connections>
+                        <outlet property="activityIndicator" destination="Eag-sc-287" id="Qyd-yT-313"/>
                         <outlet property="ageLabel" destination="Y0J-lV-Gtn" id="gWD-K1-2df"/>
                         <outlet property="ageStaticLabel" destination="Dz7-Tm-ard" id="Ck4-Z7-2su"/>
                         <outlet property="avatarImageView" destination="fPd-jd-Aeg" id="rQU-20-M1E"/>
@@ -743,8 +749,7 @@
                             </button>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="jmx-QC-7LG">
                                 <rect key="frame" x="169" y="283" width="37" height="37"/>
-                                <color key="tintColor" name="buttons_1"/>
-                                <color key="color" systemColor="systemIndigoColor"/>
+                                <color key="color" name="Phantom"/>
                             </activityIndicatorView>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="owc-ht-FD7">
                                 <rect key="frame" x="16" y="398" width="123" height="40"/>
@@ -890,8 +895,8 @@
         <image name="photo.on.rectangle.fill" catalog="system" width="128" height="96"/>
         <image name="plus" catalog="system" width="128" height="113"/>
         <image name="signUpWallpaper" width="2560" height="1440"/>
-        <namedColor name="buttons_1">
-            <color red="0.3449999988079071" green="0.33700001239776611" blue="0.83899998664855957" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <namedColor name="Phantom">
+            <color red="0.32400000095367432" green="0.10599999874830246" blue="0.57499998807907104" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -904,9 +909,6 @@
         </systemColor>
         <systemColor name="systemGreenColor">
             <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
-        <systemColor name="systemIndigoColor">
-            <color red="0.34509803921568627" green="0.33725490196078434" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemPinkColor">
             <color red="1" green="0.17647058823529413" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

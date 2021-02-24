@@ -32,7 +32,6 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setDarkMode()
-        LocalizationSystem.sharedInstance.setLanguage(languageCode:UserDefaults.standard.string(forKey: CustomSettings.UserDefaultKeys.LANG.rawValue)!)
         setLocalization()
         setElementsUp()
     }
@@ -46,8 +45,7 @@ class LoginViewController: UIViewController {
         Auth.auth().signIn(withEmail: email, password: password) { (result, error) in
             
             if error != nil {
-                showError(LocalizationSystem.sharedInstance.localizedStringForKey(key: "LoginViewController_loginError", comment: ""), errorLabel: self.errorLabel)
-                
+                showError(NSLocalizedString("LoginViewController_loginError", comment: ""), errorLabel: self.errorLabel)
             }
             else {
                 self.transitionToTable()
@@ -61,18 +59,19 @@ class LoginViewController: UIViewController {
         let color=UserDefaults.standard.string(forKey: CustomSettings.UserDefaultKeys.COLOR.rawValue)!
         let font=UserDefaults.standard.string(forKey: CustomSettings.UserDefaultKeys.STYLE.rawValue)!
         let size=UserDefaults.standard.integer(forKey: CustomSettings.UserDefaultKeys.SIZE.rawValue)
-        Utilities.styleTextField(emailTextField, colorName: color, fontName: font, fontSize: size)
-        Utilities.styleTextField(passwordTextField, colorName: color, fontName: font, fontSize: size)
         Utilities.styleButton(loginButton, colorName: color, fontName: font, fontSize: size)
         Utilities.styleButton(signUpButton, colorName: color, fontName: font, fontSize: size)
+        Utilities.styleTextField(emailTextField, colorName: color, fontName: font, fontSize: size)
+        Utilities.styleTextField(passwordTextField, colorName: color, fontName: font, fontSize: size)
     }
     
     
     func setLocalization(){
-        emailTextField.placeholder=LocalizationSystem.sharedInstance.localizedStringForKey(key: "LoginViewController_emailTextField", comment: "")
-        passwordTextField.placeholder=LocalizationSystem.sharedInstance.localizedStringForKey(key: "LoginViewController_passwordTextField", comment: "")
-        loginButton.setTitle(LocalizationSystem.sharedInstance.localizedStringForKey(key: "LoginViewController_loginButton", comment: ""), for: .normal)
-        signUpButton.setTitle(LocalizationSystem.sharedInstance.localizedStringForKey(key: "LoginViewController_signUpButton", comment: ""), for: .normal)
+        loginButton.setTitle(NSLocalizedString("LoginViewController_loginButton", comment: ""), for: .normal)
+        signUpButton.setTitle(NSLocalizedString("LoginViewController_signUpButton", comment: ""), for: .normal)
+        emailTextField.placeholder=NSLocalizedString("LoginViewController_emailTextField", comment: "")
+        passwordTextField.placeholder=NSLocalizedString("LoginViewController_passwordTextField", comment: "")
+        
     }
     
     func transitionToTable() {
@@ -96,7 +95,6 @@ class LoginViewController: UIViewController {
     
     @objc func themeChanged(){
         setDarkMode()
-        LocalizationSystem.sharedInstance.setLanguage(languageCode:UserDefaults.standard.string(forKey: CustomSettings.UserDefaultKeys.LANG.rawValue)!)
         setLocalization()
         setElementsUp()
         

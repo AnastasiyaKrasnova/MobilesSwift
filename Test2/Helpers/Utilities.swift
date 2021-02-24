@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class Utilities {
+class Utilities: UIViewController {
     
     static func styleTextField(_ textfield:UITextField, colorName: String, fontName: String, fontSize: Int) {
         
@@ -18,14 +18,14 @@ class Utilities {
         
         bottomLine.frame = CGRect(x: 0, y: textfield.frame.height - 2, width: textfield.frame.width, height: 2)
         
-        bottomLine.backgroundColor = UIColor(named: colorName)?.cgColor
-        
         textfield.borderStyle = .none
         
         textfield.backgroundColor = .none
         
         textfield.layer.cornerRadius = 5.0
         
+        let util=Utilities()
+        bottomLine.backgroundColor = UIColor(named: colorName)?.resolvedColor(with: util.traitCollection).cgColor
         // Add the line to the text field
         textfield.layer.addSublayer(bottomLine)
         
@@ -38,7 +38,8 @@ class Utilities {
         
         imageView.layer.borderWidth = 3
         
-        imageView.layer.borderColor = UIColor(named: colorName)?.cgColor
+        let util=Utilities()
+        imageView.layer.borderColor = UIColor(named: colorName)?.resolvedColor(with: util.traitCollection).cgColor
         
         imageView.layer.cornerRadius = 5.0
         

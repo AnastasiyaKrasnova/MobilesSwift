@@ -18,6 +18,7 @@
 "LoginViewController_signUpButton" = "Зарегистрироваться";
 "LoginViewController_loginButton" = "Войти";
 "LoginViewController_loginError" = " Email или пароль не корректны" ;
+"LoginViewController_backButton" = "Назад";
 
 "CharacterEditorViewController_nameTextField" = "Введите Имя";
 "CharacterEditorViewController_ageTextField" = "Введите Возраст";

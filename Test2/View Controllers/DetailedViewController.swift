@@ -16,6 +16,7 @@ class DetailedViewController: UIViewController {
         
     }
 
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var nameStaticLabel: UILabel!
     @IBOutlet weak var ageStaticLabel: UILabel!
     @IBOutlet weak var seasonStaticLabel: UILabel!
@@ -34,13 +35,21 @@ class DetailedViewController: UIViewController {
     
     @IBOutlet weak var avatarImageView: UIImageView!
     
+    @IBAction func tapped(_ sender: UIBarButtonItem) {
+        print("Hello")
+    }
+    
+    
     var data: QueryDocumentSnapshot?
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        setDarkMode()
         setLocalization()
         setElementsUp()
+        
+        activityIndicator.alpha=0
         
         if data==nil{
             print("Error on segue")
@@ -58,10 +67,10 @@ class DetailedViewController: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
         if segue.identifier==Constants.Storyboard.editorSegue{
                 let destVC=segue.destination as! CharacterEditorViewController
                 destVC.isEditing=true
@@ -76,10 +85,10 @@ class DetailedViewController: UIViewController {
     }
     
     func setLocalization(){
-        nameStaticLabel.text=LocalizationSystem.sharedInstance.localizedStringForKey(key: "DetailedViewController_standStaticLabel", comment: "")
-        seasonStaticLabel.text=LocalizationSystem.sharedInstance.localizedStringForKey(key: "DetailedViewController_seasonStaticLabel", comment: "")
-        ageStaticLabel.text=LocalizationSystem.sharedInstance.localizedStringForKey(key: "DetailedViewController_ageStaticLabel", comment: "")
-        descriptionStaticLabel.text=LocalizationSystem.sharedInstance.localizedStringForKey(key: "DetailedViewController_descriptionStaticLabel", comment: "")
+        nameStaticLabel.text=NSLocalizedString( "DetailedViewController_standStaticLabel", comment: "")
+        seasonStaticLabel.text=NSLocalizedString( "DetailedViewController_seasonStaticLabel", comment: "")
+        ageStaticLabel.text=NSLocalizedString( "DetailedViewController_ageStaticLabel", comment: "")
+        descriptionStaticLabel.text=NSLocalizedString("DetailedViewController_descriptionStaticLabel", comment: "")
     }
     
     public func setElementsUp(){
@@ -103,7 +112,6 @@ class DetailedViewController: UIViewController {
     
     @objc func themeChanged(){
         setDarkMode()
-        LocalizationSystem.sharedInstance.setLanguage(languageCode:UserDefaults.standard.string(forKey: CustomSettings.UserDefaultKeys.LANG.rawValue)!)
         setLocalization()
         setElementsUp()
         
