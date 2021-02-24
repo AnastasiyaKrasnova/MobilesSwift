@@ -49,6 +49,7 @@ class TableViewController: UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
     
+        setDarkMode()
         activityIndicator.alpha=1
         activityIndicator.startAnimating()
         
@@ -90,12 +91,7 @@ class TableViewController: UIViewController{
     }
     
     @objc func themeChanged(){
-        if (UserDefaults.standard.bool(forKey: CustomSettings.UserDefaultKeys.DARK.rawValue) == false){
-            overrideUserInterfaceStyle = .light
-        }
-        else{
-            overrideUserInterfaceStyle = .dark
-        }
+        setDarkMode()
         LocalizationSystem.sharedInstance.setLanguage(languageCode:UserDefaults.standard.string(forKey: CustomSettings.UserDefaultKeys.LANG.rawValue)!)
         let cells = self.tableView.visibleCells as! Array<CharacterTableViewCell>
 
@@ -103,6 +99,15 @@ class TableViewController: UIViewController{
                 cell.setLocalization()
                 cell.setUpElements()
             }
+    }
+    
+    func setDarkMode(){
+        if (UserDefaults.standard.bool(forKey: CustomSettings.UserDefaultKeys.DARK.rawValue) == false){
+            overrideUserInterfaceStyle = .light
+        }
+        else{
+            overrideUserInterfaceStyle = .dark
+        }
     }
 }
 
@@ -172,19 +177,13 @@ class CharacterTableViewCell: UITableViewCell {
     }
     
     public func setUpElements(){
-        Utilities.styleLabel(nameLabel, colorName: UserDefaults.standard.string(forKey: CustomSettings.UserDefaultKeys.COLOR.rawValue)!)
-        Utilities.styleLabel(standLabel, colorName: UserDefaults.standard.string(forKey: CustomSettings.UserDefaultKeys.COLOR.rawValue)!)
-        Utilities.styleLabel(ageLabel, colorName: UserDefaults.standard.string(forKey: CustomSettings.UserDefaultKeys.COLOR.rawValue)!)
-        Utilities.styleLabel(seasonLabel, colorName: UserDefaults.standard.string(forKey: CustomSettings.UserDefaultKeys.COLOR.rawValue)!)
-    }
-    
-    func setDarkMode(){
-        if (UserDefaults.standard.bool(forKey: CustomSettings.UserDefaultKeys.DARK.rawValue) == false){
-            overrideUserInterfaceStyle = .light
-        }
-        else{
-            overrideUserInterfaceStyle = .dark
-        }
+        let color=UserDefaults.standard.string(forKey: CustomSettings.UserDefaultKeys.COLOR.rawValue)!
+        let font=UserDefaults.standard.string(forKey: CustomSettings.UserDefaultKeys.STYLE.rawValue)!
+        let size=UserDefaults.standard.integer(forKey: CustomSettings.UserDefaultKeys.SIZE.rawValue)
+        Utilities.styleLabel(nameLabel, colorName: color, fontName: font, fontSize: size)
+        Utilities.styleLabel(standLabel, colorName: color, fontName: font, fontSize: size)
+        Utilities.styleLabel(ageLabel, colorName: color, fontName: font, fontSize: size)
+        Utilities.styleLabel(seasonLabel, colorName: color, fontName: font, fontSize: size)
     }
     
 }

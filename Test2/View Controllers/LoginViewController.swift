@@ -58,11 +58,13 @@ class LoginViewController: UIViewController {
     
     func setElementsUp(){
         errorLabel.alpha=0
-        print(UserDefaults.standard.string(forKey: CustomSettings.UserDefaultKeys.COLOR.rawValue)!)
-        Utilities.styleTextField(emailTextField, colorName: UserDefaults.standard.string(forKey: CustomSettings.UserDefaultKeys.COLOR.rawValue)!)
-        Utilities.styleTextField(passwordTextField, colorName: UserDefaults.standard.string(forKey: CustomSettings.UserDefaultKeys.COLOR.rawValue)!)
-        Utilities.styleButton(loginButton, colorName: UserDefaults.standard.string(forKey: CustomSettings.UserDefaultKeys.COLOR.rawValue)!)
-        Utilities.styleButton(signUpButton, colorName: UserDefaults.standard.string(forKey: CustomSettings.UserDefaultKeys.COLOR.rawValue)!)
+        let color=UserDefaults.standard.string(forKey: CustomSettings.UserDefaultKeys.COLOR.rawValue)!
+        let font=UserDefaults.standard.string(forKey: CustomSettings.UserDefaultKeys.STYLE.rawValue)!
+        let size=UserDefaults.standard.integer(forKey: CustomSettings.UserDefaultKeys.SIZE.rawValue)
+        Utilities.styleTextField(emailTextField, colorName: color, fontName: font, fontSize: size)
+        Utilities.styleTextField(passwordTextField, colorName: color, fontName: font, fontSize: size)
+        Utilities.styleButton(loginButton, colorName: color, fontName: font, fontSize: size)
+        Utilities.styleButton(signUpButton, colorName: color, fontName: font, fontSize: size)
     }
     
     

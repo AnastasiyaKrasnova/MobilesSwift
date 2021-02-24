@@ -259,14 +259,19 @@ class CharacterEditorViewController: UIViewController, UIImagePickerControllerDe
     
     func setElementsUp(){
         errorLabel.alpha=0
-        Utilities.styleTextField(nameTextField, colorName: "buttons_1")
-        Utilities.styleTextField(seasonTextField, colorName: "buttons_1")
-        Utilities.styleTextField(ageTextField, colorName: "buttons_1")
-        Utilities.styleTextField(standTextField, colorName: "buttons_1")
-        Utilities.styleTextField(xTextField, colorName: "buttons_1")
-        Utilities.styleTextField(yTextField, colorName: "buttons_1")
-        Utilities.styleButton(saveButton, colorName: "buttons_1")
-        Utilities.styleImageView(avatarImageView, colorName: "buttons_1")
+        
+        let color=UserDefaults.standard.string(forKey: CustomSettings.UserDefaultKeys.COLOR.rawValue)!
+        let font=UserDefaults.standard.string(forKey: CustomSettings.UserDefaultKeys.STYLE.rawValue)!
+        let size=UserDefaults.standard.integer(forKey: CustomSettings.UserDefaultKeys.SIZE.rawValue)
+        
+        Utilities.styleTextField(nameTextField, colorName: color, fontName: font, fontSize: size)
+        Utilities.styleTextField(seasonTextField, colorName: color, fontName: font, fontSize: size)
+        Utilities.styleTextField(ageTextField, colorName: color, fontName: font, fontSize: size)
+        Utilities.styleTextField(standTextField, colorName: color, fontName: font, fontSize: size)
+        Utilities.styleTextField(xTextField, colorName: color, fontName: font, fontSize: size)
+        Utilities.styleTextField(yTextField, colorName: color, fontName: font, fontSize: size)
+        Utilities.styleButton(saveButton, colorName: color, fontName: font, fontSize: size)
+        Utilities.styleImageView(avatarImageView, colorName: color)
     }
     
     func setDarkMode(){

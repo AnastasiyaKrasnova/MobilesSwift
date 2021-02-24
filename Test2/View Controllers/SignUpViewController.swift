@@ -40,6 +40,7 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate & 
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setDarkMode()
         setElementsUp()
         setLocalization()
         
@@ -128,12 +129,15 @@ class SignUpViewController: UIViewController, UIImagePickerControllerDelegate & 
     
     func setElementsUp(){
         errorLabel.alpha=0
-        Utilities.styleTextField(emailTextField, colorName: "buttons_1")
-        Utilities.styleTextField(passwordTextField, colorName: "buttons_1")
-        Utilities.styleTextField(firstNameTextField, colorName: "buttons_1")
-        Utilities.styleTextField(lastNameTextField, colorName: "buttons_1")
-        Utilities.styleButton(signUpButton, colorName: "buttons_1")
-        Utilities.styleImageView(avatarImageView, colorName: "buttons_1")
+        let color=UserDefaults.standard.string(forKey: CustomSettings.UserDefaultKeys.COLOR.rawValue)!
+        let font=UserDefaults.standard.string(forKey: CustomSettings.UserDefaultKeys.STYLE.rawValue)!
+        let size=UserDefaults.standard.integer(forKey: CustomSettings.UserDefaultKeys.SIZE.rawValue)
+        Utilities.styleTextField(emailTextField, colorName: color, fontName: font, fontSize: size)
+        Utilities.styleTextField(passwordTextField, colorName: color, fontName: font, fontSize: size)
+        Utilities.styleTextField(firstNameTextField, colorName: color, fontName: font, fontSize: size)
+        Utilities.styleTextField(lastNameTextField, colorName: color, fontName: font, fontSize: size)
+        Utilities.styleButton(signUpButton, colorName: color, fontName: font, fontSize: size)
+        Utilities.styleImageView(avatarImageView, colorName: color)
     }
     
     

@@ -11,7 +11,7 @@ import UIKit
 
 class Utilities {
     
-    static func styleTextField(_ textfield:UITextField, colorName: String) {
+    static func styleTextField(_ textfield:UITextField, colorName: String, fontName: String, fontSize: Int) {
         
         // Create the bottom line
         let bottomLine = CALayer()
@@ -29,6 +29,8 @@ class Utilities {
         // Add the line to the text field
         textfield.layer.addSublayer(bottomLine)
         
+        textfield.font=UIFont(name: fontName, size: CGFloat(fontSize))
+        
     }
     
     static func styleImageView(_ imageView:UIImageView, colorName: String) {
@@ -43,15 +45,17 @@ class Utilities {
         
     }
     
-    static func styleLabel(_ label: UILabel,colorName: String) {
+    static func styleLabel(_ label: UILabel,colorName: String, fontName: String, fontSize: Int) {
         label.textColor=UIColor(named: colorName)
+        label.font=UIFont(name: fontName, size: CGFloat(fontSize))
     }
     
-    static func styleButton(_ button:UIButton,colorName: String) {
+    static func styleButton(_ button:UIButton,colorName: String, fontName: String, fontSize: Int) {
         
         button.backgroundColor = UIColor(named: colorName)
         button.layer.cornerRadius = 25.0
         button.tintColor = UIColor(named: "fonts")
+        button.titleLabel!.font=UIFont(name: fontName, size: CGFloat(fontSize))
     }
     
     static func isPasswordValid(_ password : String) -> Bool {

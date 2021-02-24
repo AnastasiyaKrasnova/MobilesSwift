@@ -14,5 +14,7 @@ class CustomSettings{
         case DARK = "DARK_THEME"
         case COLOR="COLOR_THEME"
         case LANG="PREFFERED_LANGUAGE"
+        case STYLE="FONT_STYLE"
+        case SIZE="FONT_SIZE"
     }
 }

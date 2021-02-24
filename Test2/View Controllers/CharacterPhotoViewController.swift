@@ -133,7 +133,7 @@ class CharacterPhotoCell: UICollectionViewCell{
     @IBOutlet weak var photoImageView: UIImageView!
     
     public func setUpElements(){
-        Utilities.styleImageView(photoImageView, colorName: "buttons_1")
+        Utilities.styleImageView(photoImageView, colorName: UserDefaults.standard.string(forKey: CustomSettings.UserDefaultKeys.COLOR.rawValue)!)
     }
     
 }

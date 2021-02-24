@@ -39,7 +39,7 @@ class SettingsViewController: UIViewController {
         
         super.viewWillAppear(animated)
         setLocalization()
-        setUpElements()
+        //setUpElements()
         languagePicker.isHidden=true
         if self.traitCollection.userInterfaceStyle == .light{
             darkSwitch.setOn(false, animated: true)
@@ -96,9 +96,9 @@ class SettingsViewController: UIViewController {
         
     }
     
-    public func setUpElements(){
+    /*public func setUpElements(){
         Utilities.styleButton(changeLanguageButton, colorName: "buttons_1")
-    }
+    }*/
 }
 
 extension SettingsViewController: UIPickerViewDelegate, UIPickerViewDataSource{

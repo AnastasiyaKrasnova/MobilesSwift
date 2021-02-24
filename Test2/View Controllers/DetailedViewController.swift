@@ -83,11 +83,13 @@ class DetailedViewController: UIViewController {
     }
     
     public func setElementsUp(){
-        //Utilities.styleImageView(avatarImageView, colorName: "buttons_2")
-        Utilities.styleLabel(nameLabel, colorName: "buttons_1")
-        Utilities.styleLabel(standLabel, colorName: "buttons_1")
-        Utilities.styleLabel(ageLabel, colorName: "buttons_1")
-        Utilities.styleLabel(seasonLabel, colorName: "buttons_1")
+        let color=UserDefaults.standard.string(forKey: CustomSettings.UserDefaultKeys.COLOR.rawValue)!
+        let font=UserDefaults.standard.string(forKey: CustomSettings.UserDefaultKeys.STYLE.rawValue)!
+        let size=UserDefaults.standard.integer(forKey: CustomSettings.UserDefaultKeys.SIZE.rawValue)
+        Utilities.styleLabel(nameLabel, colorName: color, fontName: font, fontSize: size)
+        Utilities.styleLabel(standLabel, colorName: color, fontName: font, fontSize: size)
+        Utilities.styleLabel(ageLabel, colorName: color, fontName: font, fontSize: size)
+        Utilities.styleLabel(seasonLabel, colorName: color, fontName: font, fontSize: size)
     }
     
     func setDarkMode(){
